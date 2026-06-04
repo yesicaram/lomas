@@ -1905,6 +1905,7 @@ function buildAdminData() {
     const cuotaAmt   = tieneRec ? Math.max(0, montoTotal - CONFIG.RECARGO) : montoTotal;
     return {
       name:    String(p['Nombre'] || '').trim(),
+      dni:     String(p['DNI'] || '').trim(),
       cat:     j ? j.cat : '',
       month:   mesAbrev + ' ' + anio,
       amount:  cuotaAmt,
@@ -1915,6 +1916,50 @@ function buildAdminData() {
       paymentId: p['PaymentID'] || '',
     };
   });
+
+  // ── Generar cuotas IMPAGAS (no existen como fila en el Sheet) ──
+  // El Sheet solo guarda lo cobrado; las impagas se calculan con getMesesDeuda(),
+  // igual que en la vista de la jugadora. Esto evita que el panel solo muestre
+  // las cuotas pagas.
+  const anioActual = String(new Date().getFullYear());
+  const existentes = new Set(ADMIN_DATA.map(r => r.dni + '|' + r.month));
+
+  JUGADORAS.forEach(j => {
+    if (j.estado !== 'activa') return;       // solo activos (no exentos, no baja)
+    const adeudados = getMesesDeuda(j.dni);  // índices de meses sin pagar
+    if (adeudados.length === 0) return;
+
+    // ¿Paga media cuota? (2º+ integrante de un grupo familiar activo)
+    const grupoArr = DB[j.dni] || [];
+    const activosGrupo = grupoArr.filter(p => {
+      const jj = JUGADORAS.find(x => x.dni === String(p.id));
+      return !jj || jj.estado !== 'baja';
+    });
+    let esSecundario = false;
+    if (activosGrupo.length > 1) {
+      esSecundario = activosGrupo.findIndex(p => String(p.id) === j.dni) > 0;
+    }
+
+    adeudados.forEach(m => {
+      const month = MESES_CORTO[m] + ' ' + anioActual;
+      if (existentes.has(j.dni + '|' + month)) return; // ya tiene fila (paga o pendiente)
+      existentes.add(j.dni + '|' + month);
+      const base = getPrecio(m);
+      ADMIN_DATA.push({
+        name:    j.nombre,
+        dni:     j.dni,
+        cat:     j.cat,
+        month,
+        amount:  esSecundario ? base / 2 : base,
+        recargo: 0,
+        date:    '-',
+        status:  'pending',
+        origen:  '',
+        paymentId: '',
+      });
+    });
+  });
+
   console.log('ADMIN_DATA sample:', ADMIN_DATA.slice(0,3));
 }
 
@@ -2708,4 +2753,3 @@ function resetForm() {
 
 </body>
 </html>
- 
