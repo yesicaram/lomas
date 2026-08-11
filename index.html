@@ -33,7 +33,6 @@
     background: var(--bg); color: var(--text);
     min-height: 100vh; -webkit-font-smoothing: antialiased;
   }
-
   /* ── NAV ── */
   nav {
     background: var(--black); height: 56px;
@@ -47,7 +46,6 @@
     font-size: 16px; font-weight: 700; white-space: nowrap;
   }
   .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); flex-shrink: 0; }
-
   /* Hamburger button */
   .nav-burger {
     display: flex; flex-direction: column; justify-content: center;
@@ -62,7 +60,6 @@
   .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
   .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
   /* Dropdown menu */
   .nav-menu {
     display: none; position: absolute; top: 56px; left: 0; right: 0;
@@ -83,11 +80,9 @@
     border-left-color: var(--pink);
     background: rgba(196,117,143,0.08);
   }
-
   /* ── LAYOUT ── */
   .view { display: none; } .view.active { display: block; }
   .wrap { max-width: 440px; margin: 0 auto; padding: 32px 16px 80px; }
-
   /* ── PAGE HEADER ── */
   .page-header { margin-bottom: 26px; }
   .page-title {
@@ -95,7 +90,6 @@
     font-size: 26px; font-weight: 700; color: var(--black); line-height: 1.2;
   }
   .page-sub { margin-top: 5px; color: var(--text-soft); font-size: 13px; font-weight: 400; line-height: 1.5; }
-
   /* ── CARD ── */
   .card {
     background: var(--white); border-radius: 12px;
@@ -110,7 +104,6 @@
     display: flex; align-items: center; gap: 7px;
   }
   .card-heading-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--pink); flex-shrink: 0; }
-
   /* ── SEARCH ── */
   .search-row { display: flex; gap: 8px; }
   .input-field {
@@ -124,7 +117,6 @@
   .input-field.error { border-color: var(--red); }
   .search-input { flex: 1; }
   .error-msg { color: var(--red); font-size: 12px; margin-top: 8px; display: none; line-height: 1.4; }
-
   .btn-search {
     padding: 0 18px; height: 44px; border-radius: 8px; border: none;
     background: var(--pink); color: var(--white);
@@ -132,7 +124,6 @@
     cursor: pointer; white-space: nowrap; transition: background 0.2s; letter-spacing: 0.2px;
   }
   .btn-search:hover { background: var(--pink-dark); }
-
   /* ── PLAYER ROWS ── */
   .player-row {
     display: flex; align-items: center; gap: 11px;
@@ -148,7 +139,6 @@
     box-shadow: 0 0 0 2px rgba(196,117,143,0.15);
   }
   .player-row.disabled { opacity: 0.45; cursor: not-allowed; }
-
   .check {
     width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
     border: 1.5px solid var(--border); background: var(--white);
@@ -157,7 +147,13 @@
   }
   .player-row.selected .check { background: var(--pink); border-color: var(--pink); color: var(--white); }
   .player-row.disabled .check { background: #bbb; border-color: #bbb; color: white; }
-
+  /* Check gris — "No aplica" (distinto del verde) */
+  .na-check {
+    width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid #cfcfcf; background: #e8e8e8;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #8a8a8a;
+  }
   .avatar {
     width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
     background: var(--pink); color: var(--white);
@@ -165,7 +161,6 @@
     display: flex; align-items: center; justify-content: center;
   }
   .player-row.disabled .avatar { background: #c0b0b5; }
-
   .p-name { font-size: 13px; font-weight: 600; color: var(--text); }
   .p-cat  { font-size: 11px; color: var(--text-soft); margin-top: 1px; font-weight: 400; }
   .paid-pill {
@@ -174,7 +169,13 @@
     font-size: 10px; font-weight: 600; padding: 1px 7px;
     border-radius: 20px; margin-left: 5px; vertical-align: middle;
   }
-
+  /* Pill gris — "No aplica" en historial */
+  .na-pill {
+    display: inline-flex; align-items: center; gap: 2px;
+    background: #f0f0f0; color: #888;
+    font-size: 11px; font-weight: 600; padding: 2px 8px;
+    border-radius: 20px;
+  }
   /* ── CUOTA BLOCK ── */
   .cuota-block {
     background: var(--white); border: 1px solid var(--border);
@@ -197,14 +198,12 @@
     font-weight: 400;
   }
   .select-field:focus { border-color: var(--pink); background: var(--white); box-shadow: 0 0 0 3px rgba(196,117,143,0.1); }
-
   .recargo-note {
     display: flex; align-items: flex-start; gap: 7px; margin-top: 11px;
     background: var(--red-light); border-radius: 8px;
     padding: 9px 12px; font-size: 12px; color: var(--red);
     line-height: 1.45; border-left: 3px solid var(--red);
   }
-
   /* ── TOTAL PREVIEW ── */
   .total-box {
     background: var(--pink-soft); border-radius: 12px;
@@ -236,7 +235,6 @@
   .tl-sep { border-top: 1px solid var(--pink-light); margin: 2px 0; }
   .tl-final-label { color: var(--text); font-weight: 700; }
   .tl-final-val   { color: var(--pink-dark); font-weight: 800; font-size: 14px; }
-
   /* ── BUTTONS ── */
   .btn-primary {
     width: 100%; padding: 14px; background: var(--pink); color: var(--white);
@@ -257,13 +255,11 @@
     font-size: 13px; cursor: pointer; transition: all 0.15s;
   }
   .btn-ghost:hover { border-color: var(--pink-light); color: var(--pink-dark); }
-
   .mp-note {
     text-align: center; margin-top: 9px; font-size: 11px; color: var(--text-soft);
     display: flex; align-items: center; justify-content: center; gap: 5px;
   }
   .mp-logo { background: #009ee3; color: white; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; }
-
   /* ── SUMMARY SCREEN ── */
   .s-row {
     display: flex; justify-content: space-between; align-items: center;
@@ -278,7 +274,6 @@
   }
   .s-total-lbl { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; }
   .s-total-amt { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--pink-dark); }
-
   /* ── SUCCESS ── */
   .success-wrap { text-align: center; padding: 36px 16px; }
   .success-icon {
@@ -293,7 +288,6 @@
     color: var(--black); margin-bottom: 8px;
   }
   .success-sub { color: var(--text-soft); font-size: 13px; line-height: 1.6; }
-
   /* ── ADMIN ── */
   .admin-wrap { max-width: 960px; margin: 0 auto; padding: 28px 16px 64px; }
   .admin-hdr { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; flex-wrap: wrap; gap: 12px; }
@@ -322,7 +316,6 @@
   .b-familiar{ background: #ece8fd; color: #5b21b6; }
   .export-btn { display: flex; align-items: center; gap: 6px; padding: 8px 15px; background: var(--white); border: 1px solid var(--border); border-radius: 7px; font-family: 'Inter', sans-serif; font-size: 12px; cursor: pointer; color: var(--text); transition: all 0.15s; }
   .export-btn:hover { border-color: var(--pink); color: var(--pink-dark); }
-
   .mes-chip {
     display: inline-flex; align-items: center; gap: 5px;
     padding: 6px 13px; border-radius: 20px; font-size: 13px; font-weight: 500;
@@ -355,9 +348,7 @@
   .login-wrap p { font-size: 13px; color: var(--text-soft); margin-bottom: 24px; line-height: 1.5; }
   .login-input { width: 100%; padding: 12px 15px; border: 1px solid var(--border); border-radius: 9px; font-size: 15px; font-family: 'Inter', sans-serif; margin-bottom: 12px; outline: none; background: var(--pink-bg); transition: all 0.2s; display: block; }
   .login-input:focus { border-color: var(--pink); background: white; box-shadow: 0 0 0 3px rgba(196,117,143,0.1); }
-
   .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-soft); margin-bottom: 5px; letter-spacing: 0.2px; }
-
   /* Admin inner tabs */
   .admin-tabs { display: flex; gap: 0; margin-bottom: 20px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   .admin-tab {
@@ -373,7 +364,6 @@
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 </head>
 <body>
-
 <nav>
   <div class="nav-logo">
     <div class="nav-dot"></div>
@@ -389,7 +379,6 @@
   <button class="nav-menu-item" id="menuInscripcion" onclick="showView('inscripcion',this)">📋 Inscripción</button>
   <button class="nav-menu-item" id="menuAdmin" onclick="showView('admin',this)">🔐 Panel</button>
 </div>
-
 <div id="loadingScreen" style="display:none;position:fixed;inset:0;z-index:500;background:var(--bg);flex-direction:column;align-items:center;justify-content:center;gap:14px">
   <div style="font-size:32px">🏑</div>
   <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--black)">Lomas Hockey Club</div>
@@ -399,10 +388,8 @@
     <button onclick="location.reload()" style="margin-top:10px;padding:8px 20px;background:var(--pink);color:white;border:none;border-radius:8px;font-family:'Inter',sans-serif;cursor:pointer">Reintentar</button>
   </div>
 </div>
-
 <!-- ══ HOME ══ -->
 <div id="view-home" class="view active">
-
   <!-- Hero -->
   <div style="background:var(--black);padding:48px 20px 40px;text-align:center;border-bottom:3px solid var(--pink)">
     <div style="font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--pink-light);margin-bottom:10px">San Luis, Argentina</div>
@@ -417,9 +404,7 @@
       </a>
     </div>
   </div>
-
   <div style="max-width:480px;margin:0 auto;padding:28px 16px 80px">
-
     <!-- Entrenamientos -->
     <div class="card" style="margin-bottom:14px">
       <div class="card-heading"><div class="card-heading-dot"></div>Entrenamientos</div>
@@ -441,7 +426,6 @@
         </div>
       </div>
     </div>
-
     <!-- Categorías -->
     <div class="card" style="margin-bottom:14px">
       <div class="card-heading"><div class="card-heading-dot"></div>Categorías</div>
@@ -483,27 +467,22 @@
         </div>
       </div>
     </div>
-
     <!-- CTA inscripción -->
     <div style="background:var(--black);border-radius:14px;padding:22px 20px;text-align:center;margin-bottom:14px">
       <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);margin-bottom:6px">¿Querés sumarte?</div>
       <div style="font-size:13px;color:rgba(255,255,255,0.55);margin-bottom:18px;line-height:1.6">La inscripción tiene un costo de $<span class="cfg-inscripcion"></span> y una bocha de hockey.<br>Podés venir unos días de prueba antes de confirmar. La cuota mensual es de $<span class="cfg-cuota"></span>.</div>
       <button class="btn-primary" onclick="showViewById('inscripcion')" style="background:var(--pink)">Inscribirme ahora</button>
     </div>
-
     <!-- FAQ -->
     <div class="card">
       <div class="card-heading"><div class="card-heading-dot"></div>Preguntas frecuentes</div>
       <div id="faqList"></div>
     </div>
-
   </div>
 </div>
-
 <!-- ══ JUGADORAS ══ -->
 <div id="view-player" class="view">
   <div class="wrap">
-
     <div id="sc-search">
       <div class="page-header" id="pagos-header">
         <div class="page-title">Pago de cuota</div>
@@ -512,7 +491,6 @@
           👨‍👩‍👧 Si pagás por un <strong>grupo familiar</strong>, ingresá el DNI de cualquier integrante del grupo.
         </div>
       </div>
-
       <!-- Búsqueda -->
       <div class="card" id="pagos-dni-card">
         <div class="card-heading"><div class="card-heading-dot"></div>DNI</div>
@@ -523,7 +501,6 @@
         </div>
         <div class="error-msg" id="dniError">No encontramos ese DNI. Consultá al club.</div>
       </div>
-
       <!-- Mensaje exento -->
       <div id="exentoMsg" style="display:none">
         <div class="card" style="text-align:center;padding:28px 20px">
@@ -532,15 +509,22 @@
           <div style="font-size:13px;color:var(--text-soft);line-height:1.6">No corresponde realizar pagos de cuota para este integrante.<br>Ante cualquier consulta, comunicarse con el club.</div>
         </div>
       </div>
-
       <div id="grupoSection" style="display:none">
-
         <!-- Integrantes -->
         <div class="card">
           <div class="card-heading"><div class="card-heading-dot"></div><span id="grupoTitulo">Grupo familiar</span></div>
           <div id="grupoList"></div>
         </div>
-
+        <!-- Meses exentos (sin cobro) — "No aplica" -->
+        <div class="card" id="exentosNote" style="display:none;padding:14px 16px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="na-check">✕</div>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:#666">Meses sin cobro</div>
+              <div id="exentosList" style="font-size:12px;color:var(--text-soft);margin-top:2px"></div>
+            </div>
+          </div>
+        </div>
         <!-- Mensaje al día -->
         <div id="alDiaMsg" style="display:none">
           <div class="card">
@@ -552,7 +536,6 @@
             </div>
           </div>
         </div>
-
         <!-- Meses adeudados -->
         <div class="cuota-block" id="payOpts" style="display:none">
           <div id="mesesCard">
@@ -564,7 +547,6 @@
             <span>Se aplicará un recargo por pago fuera de término.</span>
           </div>
         </div>
-
         <!-- Total -->
         <div class="total-box" id="totalBox">
           <div class="total-box-label">Detalle</div>
@@ -575,7 +557,6 @@
             <span class="total-box-amount" id="totalAmt" style="margin-bottom:0"></span>
           </div>
         </div>
-
         <!-- Historial compacto (colapsable) -->
         <div id="historialWrap" style="display:none;margin-bottom:12px">
           <button onclick="toggleHistorial()" style="background:none;border:none;width:100%;text-align:left;font-family:'Inter',sans-serif;font-size:12px;color:var(--text-soft);cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:8px 2px">
@@ -586,7 +567,6 @@
             <div id="historialRows"></div>
           </div>
         </div>
-
         <!-- Sticky pay bar -->
         <div id="stickyBar" style="display:none;position:fixed;bottom:0;left:0;right:0;padding:12px 16px 20px;background:var(--bg);border-top:1px solid var(--border);z-index:50">
           <button class="btn-primary" id="btnPagar" onclick="pagar()" disabled>
@@ -597,7 +577,6 @@
         <div style="height:80px"></div><!-- spacer para el sticky bar -->
       </div>
     </div>
-
     <!-- Éxito -->
     <div id="sc-exito" style="display:none">
       <div class="card">
@@ -611,10 +590,8 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
-
 <!-- ══ ADMIN ══ -->
 <div id="view-admin" class="view">
   <div id="admin-login" class="login-wrap">
@@ -627,7 +604,6 @@
       <button class="btn-primary" onclick="checkAdmin()">Ingresar</button>
     </div>
   </div>
-
   <div id="admin-panel" class="admin-wrap" style="display:none">
     <div class="admin-hdr">
       <div><div class="admin-title">Panel</div></div>
@@ -648,23 +624,19 @@
     <div id="admin-pagos-section">
     <!-- Resumen compacto -->
     <div style="margin-bottom:16px">
-
       <!-- Box cuotas -->
       <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:10px">
-
         <!-- Header row -->
         <div style="padding:13px 16px 8px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)">
           <span style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--black)">Cuotas</span>
           <span style="font-size:11px;color:var(--text-soft);background:var(--pink-bg);padding:2px 9px;border-radius:20px;border:1px solid var(--border)" id="statMesLabel">Abril 2025</span>
         </div>
-
         <!-- Progress bar -->
         <div style="padding:10px 16px 0">
           <div style="height:5px;background:var(--pink-soft);border-radius:20px;overflow:hidden">
             <div id="progressBar" style="height:100%;background:linear-gradient(90deg,#2d6a4f,#52b788);border-radius:20px;transition:width 0.5s ease;width:0%"></div>
           </div>
         </div>
-
         <!-- Two stat cols -->
         <div style="display:grid;grid-template-columns:1fr 1fr">
           <div style="padding:10px 16px 14px;border-right:1px solid var(--border)">
@@ -689,7 +661,6 @@
           </div>
         </div>
       </div>
-
       <!-- Otros -->
       <div style="background:var(--white);border:1px solid var(--border);border-radius:12px;padding:11px 14px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between">
         <div>
@@ -699,7 +670,6 @@
         <div style="font-size:12px;font-weight:500;color:#999" id="statOtros">—</div>
       </div>
     </div>
-
     <div class="filters">
       <input class="f-select" id="filterIntegrante" type="text" placeholder="Buscar por nombre…"
         oninput="renderAdminTable()" style="font-family:'Inter',sans-serif;cursor:text;min-width:160px">
@@ -728,10 +698,8 @@
       </table>
     </div>
     </div><!-- /admin-pagos-section -->
-
   <!-- ══ JUGADORAS TAB ══ -->
   <div id="admin-jugadoras" style="display:none">
-
     <!-- Resumen de crecimiento -->
     <div id="crecimientoBox" style="margin-bottom:16px">
       <div style="font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--black);margin-bottom:10px">Evolución del plantel</div>
@@ -749,7 +717,6 @@
         </table>
       </div>
     </div>
-
     <div class="filters">
       <input class="f-select" id="filterIntegranteNombre" type="text" placeholder="Buscar por nombre…"
         oninput="renderIntegrantesTable()" style="font-family:'Inter',sans-serif;cursor:text;min-width:160px">
@@ -787,10 +754,8 @@
       </table>
     </div>
   </div><!-- /admin-jugadoras -->
-
   <!-- ══ LIQUIDACIONES TAB ══ -->
   <div id="admin-liquidaciones" style="display:none">
-
     <div style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <div>
         <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--black)">Liquidaciones mensuales</div>
@@ -800,7 +765,6 @@
         + Cerrar mes manualmente
       </button>
     </div>
-
     <!-- Explicación general collapsible -->
     <div style="margin-bottom:16px;border:1px solid var(--border);border-radius:10px;overflow:hidden">
       <div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none';this.querySelector('.exp-icon').textContent=this.nextElementSibling.style.display==='block'?'▲':'▼'"
@@ -814,13 +778,10 @@
         <strong style="color:var(--black)">Fondo del club:</strong> Las inscripciones y recargos por mora no van al sueldo — quedan para gastos del club.
       </div>
     </div>
-
     <div id="liquidacionesWrap"></div>
-
   </div><!-- /admin-liquidaciones -->
   </div><!-- /admin-panel -->
 </div><!-- /view-admin -->
-
 <!-- ══ INSCRIPCIÓN ══ -->
 <div id="view-inscripcion" class="view">
   <div class="wrap">
@@ -829,26 +790,21 @@
         <div class="page-title">Inscripción 🏑</div>
         <div class="page-sub">Completá el formulario para unirte al club</div>
       </div>
-
       <div class="card">
         <div class="card-heading"><div class="card-heading-dot"></div>Datos del integrante</div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">Apellido *</label>
           <input class="input-field" id="f-apellido" type="text" placeholder="Apellido" autocomplete="family-name">
         </div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">Nombre/s *</label>
           <input class="input-field" id="f-nombre" type="text" placeholder="Nombre/s" autocomplete="given-name">
         </div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">DNI *</label>
           <input class="input-field" id="f-dni" type="text" placeholder="Ej: 12345678" maxlength="12" inputmode="numeric">
           <div class="error-msg" id="f-dni-error">DNI inválido. Debe tener entre 7 y 8 dígitos.</div>
         </div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">Categoría *</label>
           <select class="input-field" id="f-cat" style="cursor:pointer">
@@ -860,43 +816,35 @@
             <option value="Mamis">Mamis</option>
           </select>
         </div>
-
         <div>
           <label class="form-label">Teléfono de contacto *</label>
           <input class="input-field" id="f-tel" type="tel" placeholder="Ej: 2664123456" inputmode="tel" autocomplete="tel">
         </div>
       </div>
-
       <div class="card" id="f-tutor-card">
         <div class="card-heading"><div class="card-heading-dot"></div>Tutor/a</div>
         <div style="font-size:12px;color:var(--text-soft);margin-bottom:14px;line-height:1.5">Para integrantes menores de edad</div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">Apellido</label>
           <input class="input-field" id="f-tutor-apellido" type="text" placeholder="Apellido">
         </div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">Nombre/s</label>
           <input class="input-field" id="f-tutor-nombre" type="text" placeholder="Nombre/s">
         </div>
-
         <div style="margin-bottom:12px">
           <label class="form-label">DNI del responsable</label>
           <input class="input-field" id="f-tutor-dni" type="text" placeholder="Ej: 12345678" maxlength="12" inputmode="numeric">
           <div class="error-msg" id="f-tutor-dni-error">DNI inválido.</div>
         </div>
-
         <div>
           <label class="form-label">Teléfono</label>
           <input class="input-field" id="f-tutor-tel" type="tel" placeholder="2664123456" inputmode="tel">
         </div>
       </div>
-
       <div class="card">
         <div class="card-heading"><div class="card-heading-dot"></div>Grupo familiar <span style="font-size:11px;font-weight:400;color:var(--text-soft);margin-left:4px">— opcional</span></div>
         <div style="font-size:12px;color:var(--text-soft);margin-bottom:12px;line-height:1.5">Si esta persona pertenece a un grupo familiar ya inscripto, ingresá el DNI de uno de sus integrantes.</div>
-
         <div style="margin-bottom:10px">
           <label class="form-label">DNI de integrante del grupo</label>
           <div style="display:flex;gap:8px">
@@ -909,7 +857,6 @@
             <div style="font-size:11px;color:var(--text-soft);margin-top:2px" id="f-grupo-cat">—</div>
           </div>
         </div>
-
         <div id="f-relacion-wrap" style="display:none">
           <label class="form-label">Relación con el integrante</label>
           <select class="input-field" id="f-relacion" style="cursor:pointer">
@@ -922,13 +869,10 @@
           </select>
         </div>
       </div>
-
       <div id="f-error-global" class="error-msg" style="margin-bottom:10px;font-size:13px"></div>
-
       <button class="btn-primary" onclick="submitInscripcion()">Enviar inscripción</button>
       <div class="mp-note" style="margin-top:8px">Los datos serán revisados por el club antes de la activación</div>
     </div>
-
     <!-- Éxito inscripción -->
     <div id="sc-form-exito" style="display:none">
       <div class="card">
@@ -955,32 +899,35 @@
 <script>
 // Inicializar SDK de MP para captura de Device ID (mejora aprobación)
 const _mp = new MercadoPago('APP_USR-031a6920-8add-451f-b314-43cfa6eb92d0');
-
 // DB y PAGADOS se construyen dinámicamente desde el Sheet
 let DB      = {};
 let PAGADOS = {};
 let JUGADORAS = [];
 let _datosListos = false;
-
 const MESES    = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 const MESES_CORTO = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const MES_ACT  = new Date().getMonth(); // mes actual real
 const HOY_DIA  = new Date().getDate();  // dia actual real
-
 // -- CONFIGURACIÓN DE MONTOS -- editar aquí para actualizar todo el sitio
 const CONFIG = {
   INSCRIPCION:   5000,  // Pago único al inscribirse
-  RECARGO:       2000,  // Recargo por pago fuera de término (después del día 10)
+  RECARGO:       2000,  // Recargo por pago fuera de término (después del día límite)
   CUOTA_ENE_MAR: 10000, // Cuota regular Enero-Marzo
   CUOTA_ABR_JUL: 15000, // Cuota regular Abril-Julio
   CUOTA_AGO_DIC: 18000, // Cuota regular Agosto-Diciembre
   CUOTA_FAMILIAR_DESC: 0.5, // % de descuento para 2do familiar y siguientes (50%)
-  DIA_LIMITE:    10,    // Día límite para pagar sin recargo
+  DIA_LIMITE:    15,    // Día límite para pagar sin recargo
 };
-
 const RECARGO    = CONFIG.RECARGO;
 const INSCRIPCION = CONFIG.INSCRIPCION;
-
+// -- MESES EXENTOS -- meses que NO se cobran (vacaciones / receso del club).
+// Formato de cada clave: 'AÑO-INDICEMES' (mes: 0=Enero ... 6=Julio ... 11=Diciembre).
+// Para quitar la excepción el año que viene, borrá la clave correspondiente.
+const MESES_EXENTOS = new Set(['2026-6']); // Julio 2026 — vacaciones, no se cobra cuota
+const ANIO_ACT = new Date().getFullYear();
+function esMesExento(mes, anio) {
+  return MESES_EXENTOS.has((anio !== undefined ? anio : ANIO_ACT) + '-' + mes);
+}
 const FAQ = [
   {
     q: '¿Cuánto cuesta inscribirse?',
@@ -1019,7 +966,6 @@ const FAQ = [
     a: 'No hay límite de edad. La categoría Mamis está pensada para adultos de cualquier edad.'
   },
 ];
-
 function showViewById(v) {
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-menu-item').forEach(el => el.classList.remove('active'));
@@ -1028,7 +974,6 @@ function showViewById(v) {
   if (menuBtn) menuBtn.classList.add('active');
   window.scrollTo({ top:0, behavior:'smooth' });
 }
-
 function renderFAQ() {
   let openIdx = -1;
   document.getElementById('faqList').innerHTML = FAQ.map((item, i) => `
@@ -1040,7 +985,6 @@ function renderFAQ() {
       <div id="faq-body-${i}" style="display:none;font-size:13px;color:var(--text-soft);line-height:1.6;padding-bottom:13px">${item.a}</div>
     </div>`).join('');
 }
-
 function toggleFAQ(i) {
   const body = document.getElementById('faq-body-' + i);
   const icon = document.getElementById('faq-icon-' + i);
@@ -1048,21 +992,16 @@ function toggleFAQ(i) {
   body.style.display = open ? 'none' : 'block';
   icon.textContent   = open ? '▼' : '▲';
 }
-
 function initHome() {
   document.querySelectorAll('.cfg-inscripcion').forEach(el => el.textContent = CONFIG.INSCRIPCION.toLocaleString('es-AR'));
   document.querySelectorAll('.cfg-cuota').forEach(el => el.textContent = CONFIG.CUOTA_ABR_JUL.toLocaleString('es-AR'));
   renderFAQ();
 }
-
 function getPrecio(mes) {
   if (mes <= 2) return CONFIG.CUOTA_ENE_MAR;
   if (mes <= 6) return CONFIG.CUOTA_ABR_JUL;
   return CONFIG.CUOTA_AGO_DIC;
 }
-
-
-
 // DNIs con período de gracia extendido — pagan después en el mes
 const GRACIA_EXTENDIDA = new Set([
   '30461329', // Casco, Gabriela (+ grupo G01)
@@ -1072,13 +1011,11 @@ const GRACIA_EXTENDIDA = new Set([
   '55843978', // Giménez Blanco — 90 días
   '56089911', // Blanco, Alison Yareli — 90 días
 ]);
-
-// Días de gracia por DNI (default 30, puede ser más)
+// Días de gracia por DNI (default = CONFIG.DIA_LIMITE, puede ser más)
 const GRACIA_DIAS = {
   '55843978': 90,
   '56089911': 90,
 };
-
 function tieneRecargoMes(mes) {
   // Mes anterior al actual → recargo siempre
   if (mes < MES_ACT) return true;
@@ -1094,26 +1031,23 @@ function tieneRecargoMes(mes) {
         const grupoArr = DB[id] || [];
         const dniConGracia = grupoArr.find(p => GRACIA_EXTENDIDA.has(String(p.id)));
         const dni = dniConGracia ? String(dniConGracia.id) : String(id);
-        return Math.max(max, GRACIA_DIAS[dni] || 30);
-      }, 30);
+        return Math.max(max, GRACIA_DIAS[dni] || CONFIG.DIA_LIMITE);
+      }, CONFIG.DIA_LIMITE);
       return HOY_DIA > diasGracia;
     }
   }
   return true;
 }
-
 function tieneRecargo(mesesSeleccionados) {
   if (!mesesSeleccionados || mesesSeleccionados.length === 0) return tieneRecargoMes(MES_ACT);
   return mesesSeleccionados.some(m => tieneRecargoMes(m));
 }
-
 // Meses que debe el integrante = desde su mes de inscripción hasta MES_ACT, no pagados
 function getMesesDeuda(pid) {
   const pidStr  = String(pid);
   const pagados = PAGADOS[pidStr] || [];
   const integrante = Object.values(DB).flat().find(p => String(p.id) === pidStr);
   const jugadora   = JUGADORAS.find(j => j.dni === pidStr);
-
   let desde = 0;
   if (integrante?.fechaInscripcion) {
     const parts = integrante.fechaInscripcion.split('-');
@@ -1124,7 +1058,6 @@ function getMesesDeuda(pid) {
       desde = d.getDate() <= 10 ? d.getMonth() : d.getMonth() + 1;
     }
   }
-
   // Si está dada de baja, no cobrar meses posteriores a la baja
   let hasta = MES_ACT;
   if (jugadora?.estado === 'baja' && jugadora?.fechaBaja) {
@@ -1136,19 +1069,39 @@ function getMesesDeuda(pid) {
       }
     }
   }
-
   const deuda = [];
   for (let i = desde; i <= hasta; i++) {
+    if (esMesExento(i)) continue; // mes exento (vacaciones / receso) — no se cobra
     if (!pagados.some(p => p.m === i)) deuda.push(i);
   }
   return deuda;
 }
-
+// Mes (índice) desde el que un integrante empezó a deber cuota
+function getMesInscripcion(pid) {
+  const integrante = Object.values(DB).flat().find(p => String(p.id) === String(pid));
+  if (!integrante || !integrante.fechaInscripcion) return 0;
+  const parts = integrante.fechaInscripcion.split('-');
+  const d = parts.length === 3
+    ? new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))
+    : new Date(integrante.fechaInscripcion);
+  if (isNaN(d)) return 0;
+  return d.getDate() <= 10 ? d.getMonth() : d.getMonth() + 1;
+}
+// Meses exentos (vacaciones) aplicables al grupo cargado — para mostrarlos como "No aplica"
+function getMesesExentosGrupo() {
+  const set = new Set();
+  (typeof grupo !== 'undefined' ? grupo : []).forEach(p => {
+    const insMes = getMesInscripcion(p.id);
+    for (let m = insMes; m <= MES_ACT; m++) {
+      if (esMesExento(m)) set.add(m);
+    }
+  });
+  return [...set].sort((a, b) => a - b);
+}
 // ¿Todavía no pagó la inscripción?
 function debeInscripcion(pid) {
   return !window.PAGADOS_INSCRIPCION?.[String(pid)];
 }
-
 // ¿Se inscribió después del día 10? (inscripción tardía)
 function inscripcionTardia(pid) {
   const integrante = Object.values(DB).flat().find(p => String(p.id) === String(pid));
@@ -1158,14 +1111,12 @@ function inscripcionTardia(pid) {
   const dia = parseInt(parts[2]);
   return dia > 10;
 }
-
 // ¿Es el primer pago? (ningún mes pagado aún Y ya tiene deuda)
 function esPrimerPago(pid) {
   if ((PAGADOS[pid] || []).length > 0) return false;
   const meses = getMesesDeuda(pid);
   return meses.length > 0;
 }
-
 // ¿Solo debe inscripción? (inscripción tardía, sin cuotas aún, sin inscripción paga)
 function soloDebeInscripcion(pid) {
   const meses = getMesesDeuda(pid);
@@ -1173,11 +1124,9 @@ function soloDebeInscripcion(pid) {
   const sinInscripcion = debeInscripcion(pid);
   return sinCuotas && sinInscripcion && inscripcionTardia(pid);
 }
-
 let grupo = [], selIds = new Set(), tipoAuto = 'regular';
 // mesesSel: Set de índices de mes seleccionados para pagar (común al grupo)
 let mesesSel = new Set();
-
 // Ir a pago desde inscripción
 function irAPagar(dni) {
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
@@ -1191,7 +1140,6 @@ function irAPagar(dni) {
   buscar();
   window.scrollTo({ top:0, behavior:'smooth' });
 }
-
 function irDespues() {
   resetForm();
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
@@ -1202,7 +1150,6 @@ function irDespues() {
   document.getElementById('pagos-header').style.display = '';
   document.getElementById('pagos-dni-card').style.display = '';
 }
-
 function formatearDNIInput(el) {
   // Guardar posición del cursor
   const digits = el.value.replace(/\D/g, '').slice(0, 8);
@@ -1213,25 +1160,21 @@ function formatearDNIInput(el) {
   else formatted = digits.slice(0,2) + '.' + digits.slice(2,5) + '.' + digits.slice(5);
   el.value = formatted;
 }
-
 function normalizarDNI(raw) {
   return raw.replace(/\D/g, '');
 }
-
 async function buscar() {
   const raw = document.getElementById('dniInput').value.trim();
   const q   = normalizarDNI(raw);
   const err = document.getElementById('dniError');
   err.style.display = 'none';
   document.getElementById('dniInput').classList.remove('error');
-
   if (q.length < 8) {
     document.getElementById('dniInput').classList.add('error');
     err.textContent = 'El DNI debe tener al menos 8 dígitos.';
     err.style.display = 'block';
     return;
   }
-
   // Refrescar datos del Sheet silenciosamente antes de mostrar resultados
   const btnBuscar = document.getElementById('btnBuscar');
   const dniInput = document.getElementById('dniInput');
@@ -1242,7 +1185,6 @@ async function buscar() {
   btnBuscar.innerHTML = 'Buscar';
   btnBuscar.disabled = false;
   dniInput.disabled = false;
-
   // Verificar si es exento ANTES de buscar en DB
   const jugadoraExenta = JUGADORAS.find(j => j.dni === q && j.exento);
   if (jugadoraExenta) {
@@ -1254,7 +1196,6 @@ async function buscar() {
     return;
   }
   document.getElementById('exentoMsg').style.display = 'none';
-
   const g = DB[q];
   if (!g) {
     document.getElementById('dniInput').classList.add('error');
@@ -1263,10 +1204,8 @@ async function buscar() {
     document.getElementById('grupoSection').style.display = 'none';
     return;
   }
-
   // Guardar DNI limpio internamente
   try { localStorage.setItem('lomas_dni', q); } catch(e) {}
-
   grupo = g;
   // Solo contar activos para determinar tipo de grupo
   const grupoActivos = grupo.filter(p => {
@@ -1274,13 +1213,10 @@ async function buscar() {
     return !j || j.estado !== 'baja';
   });
   tipoAuto = grupoActivos.length > 1 ? 'familiar' : 'regular';
-
   // Título: género según nombre (heurística simple por terminación)
   document.getElementById('grupoTitulo').textContent =
     grupo.length > 1 ? 'Grupo familiar' : 'Integrante';
-
   selIds = new Set(grupoActivos.map(p => p.id));
-
   // Meses adeudados del grupo (unión)
   const todosMeses = new Set();
   grupo.forEach(p => {
@@ -1288,16 +1224,23 @@ async function buscar() {
     getMesesDeuda(p.id).forEach(m => todosMeses.add(m));
   });
   mesesSel = new Set(todosMeses);
-
   renderGrupo();
   renderMeses(todosMeses);
-
+  // Meses exentos (vacaciones) — mostrar como "No aplica" gris
+  const exentos = getMesesExentosGrupo();
+  const exentosNoteEl = document.getElementById('exentosNote');
+  if (exentos.length > 0) {
+    document.getElementById('exentosList').textContent =
+      exentos.map(m => MESES[m]).join(', ') + ' — no se cobra (receso)';
+    exentosNoteEl.style.display = 'block';
+  } else {
+    exentosNoteEl.style.display = 'none';
+  }
   const alDia = todosMeses.size === 0;
   document.getElementById('alDiaMsg').style.display  = alDia ? 'block' : 'none';
   document.getElementById('payOpts').style.display   = alDia ? 'none' : 'none';
   document.getElementById('totalBox').style.display  = 'none';
   document.getElementById('stickyBar').style.display = 'none';
-
   if (alDia) {
     document.getElementById('historialWrap').style.display = 'none';
     // Construir historial de todos los meses pagados del grupo
@@ -1311,11 +1254,14 @@ async function buscar() {
         }
       });
     });
+    // Agregar meses exentos como filas "No aplica" (grises)
+    exentos.forEach(m => {
+      if (!allPagados.some(e => e.m === m)) allPagados.push({ m, f: '', na: true });
+    });
     allPagados.sort((a,b) => a.m - b.m);
-
-    const todoPago = allPagados.length > 0 &&
-      allPagados[allPagados.length-1].m >= MES_ACT;
-
+    const pagadosReales = allPagados.filter(e => !e.na);
+    const todoPago = pagadosReales.length > 0 &&
+      pagadosReales[pagadosReales.length-1].m >= MES_ACT;
     document.getElementById('alDiaHistorial').innerHTML = allPagados.length === 0
       ? `<div style="text-align:center;padding:16px 0;color:var(--text-soft);font-size:13px;line-height:1.6">
           🏑 Recién inscripto/a — aún no hay cuotas pendientes.<br>
@@ -1323,13 +1269,14 @@ async function buscar() {
          </div>`
       : allPagados.map(e => `
       <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)">
-        <span style="font-size:14px;font-weight:500">${MESES[e.m]}</span>
+        <span style="font-size:14px;font-weight:500;${e.na ? 'color:#999' : ''}">${MESES[e.m]}</span>
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:12px;color:var(--text-soft)">${e.f}</span>
-          <span style="font-size:11px;font-weight:600;color:#2d6a4f;background:#e6f4ee;padding:2px 8px;border-radius:20px">${e.bonificado ? '🎁 Bonificado' : '✅ Pago'}</span>
+          ${e.na
+            ? `<span class="na-pill">✕ No aplica</span>`
+            : `<span style="font-size:11px;font-weight:600;color:#2d6a4f;background:#e6f4ee;padding:2px 8px;border-radius:20px">${e.bonificado ? '🎁 Bonificado' : '✅ Pago'}</span>`}
         </div>
       </div>`).join('') + '<div style="height:1px"></div>';
-
     // Verificar si debe inscripción aunque no tenga cuotas pendientes
     const debeInscr = grupo.some(p => soloDebeInscripcion(p.id));
     if (debeInscr) {
@@ -1343,8 +1290,7 @@ async function buscar() {
       document.getElementById('alDiaMsg').style.display    = 'none';
       recalc();
     }
-
-    document.getElementById('alDiaOk').style.display = (allPagados.length > 0 && todoPago && !debeInscr) ? 'block' : 'none';
+    document.getElementById('alDiaOk').style.display = (pagadosReales.length > 0 && todoPago && !debeInscr) ? 'block' : 'none';
   } else {
     // Historial compacto para quien tiene deuda
     const allPagados = [];
@@ -1352,6 +1298,10 @@ async function buscar() {
       (PAGADOS[p.id] || []).forEach(entry => {
         if (!allPagados.some(e => e.m === entry.m)) allPagados.push(entry);
       });
+    });
+    // Agregar meses exentos como filas "No aplica" (grises)
+    exentos.forEach(m => {
+      if (!allPagados.some(e => e.m === m)) allPagados.push({ m, f: '', na: true });
     });
     allPagados.sort((a,b) => b.m - a.m);
     if (allPagados.length > 0) {
@@ -1361,18 +1311,18 @@ async function buscar() {
           <span style="font-size:13px;color:var(--text-soft)">${MESES[e.m]}</span>
           <div style="display:flex;align-items:center;gap:8px">
             <span style="font-size:11px;color:var(--text-soft)">${e.f}</span>
-            <span style="font-size:11px;font-weight:600;color:#2d6a4f;background:#e6f4ee;padding:2px 8px;border-radius:20px">${e.bonificado ? '🎁 Bonificado' : '✅ Pago'}</span>
+            ${e.na
+              ? `<span class="na-pill">✕ No aplica</span>`
+              : `<span style="font-size:11px;font-weight:600;color:#2d6a4f;background:#e6f4ee;padding:2px 8px;border-radius:20px">${e.bonificado ? '🎁 Bonificado' : '✅ Pago'}</span>`}
           </div>
         </div>`).join('') + '<div style="height:1px"></div>';
     } else {
       document.getElementById('historialWrap').style.display = 'none';
     }
   }
-
   document.getElementById('grupoSection').style.display = 'block';
   if (!alDia) recalc();
 }
-
 function toggleHistorial() {
   const body = document.getElementById('historialBody');
   const icon = document.getElementById('historialIcon');
@@ -1380,15 +1330,13 @@ function toggleHistorial() {
   body.style.display = open ? 'none' : 'block';
   icon.textContent   = open ? '▼' : '▲';
 }
-
 function renderMeses(todosMeses) {
   const sorted     = [...todosMeses].sort((a,b) => a-b);
   const masAntiguo = sorted[0];
-
   document.getElementById('mesesList').innerHTML = sorted.map(m => {
     const sel      = mesesSel.has(m);
     const bloqueado = m === masAntiguo;
-    const vencido  = m < MES_ACT || (m === MES_ACT && HOY_DIA > 10);
+    const vencido  = m < MES_ACT || (m === MES_ACT && HOY_DIA > CONFIG.DIA_LIMITE);
     return `
       <div class="mes-chip ${sel?'selected':''} ${vencido?'vencido':''} ${bloqueado?'locked':''}"
            onclick="${bloqueado ? '' : `toggleMes(${m})`}"
@@ -1398,29 +1346,24 @@ function renderMeses(todosMeses) {
       </div>`;
   }).join('');
 }
-
 function toggleMes(m) {
   const todosMeses = new Set();
   grupo.forEach(p => getMesesDeuda(p.id).forEach(x => todosMeses.add(x)));
   const sorted     = [...todosMeses].sort((a,b) => a-b);
   const masAntiguo = sorted[0];
-
   // No se puede deseleccionar el más antiguo ni dejar 0 seleccionados
   if (m === masAntiguo) return;
   if (mesesSel.has(m) && mesesSel.size <= 1) return;
-
   mesesSel.has(m) ? mesesSel.delete(m) : mesesSel.add(m);
   renderMeses(todosMeses);
   recalc();
 }
-
 function iniciales(nombre) {
   const partes = nombre.split(',');
   const apellido = partes[0].trim();
   const nombres  = (partes[1] || '').trim().split(' ');
   return (apellido[0] + (nombres[0]?.[0] || '')).toUpperCase();
 }
-
 function renderGrupo() {
   // Activos primero, dados de baja después
   const sorted = [...grupo].sort((a, b) => {
@@ -1445,12 +1388,10 @@ function renderGrupo() {
       </div>`;
   }).join('');
 }
-
 function toggle(id) {
   selIds.has(id) ? selIds.delete(id) : selIds.add(id);
   renderGrupo(); recalc();
 }
-
 function calcMesTotal(mes, tipo, count, recargo) {
   const base  = getPrecio(mes);
   const mitad = base / 2;
@@ -1459,27 +1400,21 @@ function calcMesTotal(mes, tipo, count, recargo) {
   }
   return base * count + recargo * count;
 }
-
 function recalc() {
   const count    = selIds.size;
   const mesesArr = [...mesesSel].sort((a,b) => a-b);
   const hayRec   = tieneRecargo(mesesArr);
-
   // ¿Algún integrante solo debe inscripción? (se inscribió tarde, sin cuotas aún)
   const soloInscripcion = [...selIds].some(id => soloDebeInscripcion(id));
-
   document.getElementById('payOpts').style.display = count > 0 ? 'block' : 'none';
   document.getElementById('recargoNote').style.display = (hayRec && !soloInscripcion) ? 'flex' : 'none';
-
   if (count === 0 || (mesesArr.length === 0 && !soloInscripcion)) {
     document.getElementById('totalBox').style.display = 'none';
     document.getElementById('stickyBar').style.display = 'none';
     document.getElementById('btnPagar').disabled = true;
     return;
   }
-
   const recargo = hayRec && !soloInscripcion ? RECARGO : 0;
-
   // ¿Algún integrante activo debe inscripción + cuota?
   const primerPago = [...selIds].some(id => {
     const j = JUGADORAS.find(x => x.dni === String(id));
@@ -1492,7 +1427,6 @@ function recalc() {
     if (j && j.estado === 'baja') return false;
     return debeInscripcion(id) && inscripcionTardia(id);
   });
-
   // Integrantes activos que deben inscripción
   const activosConInscr = [...selIds].filter(id => {
     const j = JUGADORAS.find(x => x.dni === String(id));
@@ -1500,10 +1434,8 @@ function recalc() {
   });
   const hayInscPendiente = activosConInscr.length > 0;
   const inscTotalFinal   = hayInscPendiente ? INSCRIPCION * activosConInscr.length : 0;
-
   let grandTotal = 0;
   let lines = '';
-
   // Solo inscripción — sin cuotas todavía
   if (soloInscripcion && mesesArr.length === 0) {
     grandTotal = inscTotalFinal;
@@ -1516,7 +1448,6 @@ function recalc() {
         <span class="tl-label">$${INSCRIPCION.toLocaleString('es-AR')}</span>
         <span class="tl-val">$${inscTotalFinal.toLocaleString('es-AR')}</span>
       </div>`;
-
     document.getElementById('totalBox').style.display = 'block';
     document.getElementById('totalAmt').textContent   = '$' + grandTotal.toLocaleString('es-AR');
     document.getElementById('btnMonto').textContent  = '$' + grandTotal.toLocaleString('es-AR');
@@ -1525,7 +1456,6 @@ function recalc() {
     document.getElementById('totalLines').innerHTML = lines;
     return;
   }
-
   // Inscripción al inicio si aplica (primer pago o inscripción pendiente)
   if (hayInscPendiente && !soloInscripcion) {
     const nPrimeras = [...selIds].filter(id => debeInscripcion(id)).length;
@@ -1540,7 +1470,6 @@ function recalc() {
       </div>
       <div class="tl-sep" style="margin:6px 0 4px"></div>`;
   }
-
   mesesArr.forEach((mes, idx) => {
     const base  = getPrecio(mes);
     const mitad = base / 2;
@@ -1551,14 +1480,12 @@ function recalc() {
     if (countMes === 0) return; // nadie debe este mes
     const mesTotal = calcMesTotal(mes, tipoAuto, countMes, 0); // sin recargo, se suma abajo
     grandTotal += mesTotal;
-
     if (idx > 0) lines += `<div class="tl-sep" style="margin:6px 0 4px"></div>`;
     lines += `
       <div class="total-line" style="margin-bottom:3px">
         <span class="tl-label" style="font-weight:700;color:var(--pink-dark)">${MESES[mes]}</span>
         <span class="tl-val" style="color:var(--text-soft);font-size:11px">$${mesTotal.toLocaleString('es-AR')}</span>
       </div>`;
-
     if (tipoAuto === 'familiar' && countMes >= 2) {
       lines += `
         <div class="total-line">
@@ -1577,7 +1504,6 @@ function recalc() {
           <span class="tl-val">$${base.toLocaleString('es-AR')}</span>
         </div>`;
     }
-
     if (recargoMes > 0) lines += `
       <div class="total-line">
         <span class="tl-recargo-label">Recargo${countMes > 1 ? ' × '+countMes : ''}</span>
@@ -1585,7 +1511,6 @@ function recalc() {
       </div>`;
     grandTotal += recargoMes * countMes;
   });
-
   // Inscripción de integrantes que la deben (caso grupo mixto)
   if (hayInscPendiente && !soloInscripcion) {
     const nInscr = [...selIds].filter(id => debeInscripcion(id)).length;
@@ -1601,7 +1526,6 @@ function recalc() {
       </div>`;
     grandTotal += inscTotalFinal;
   }
-
   document.getElementById('totalAmt').textContent = '$' + grandTotal.toLocaleString('es-AR');
   document.getElementById('totalLines').innerHTML = lines;
   document.getElementById('totalBox').style.display = 'block';
@@ -1610,18 +1534,14 @@ function recalc() {
   document.getElementById('btnMonto').textContent = '$' + grandTotal.toLocaleString('es-AR');
   document.getElementById('btnPagar').disabled = false;
 }
-
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwnPTLSqsXMx693wpHfjcImlmtNmJIxDXgKt6WRYeOIYjsgxSbq-6S5wpNfsQzcaiFyKA/exec';
 const MP_PUBLIC_KEY   = 'APP_USR-031a6920-8add-451f-b314-43cfa6eb92d0';
-
 // Muestra/oculta pantalla de carga
 function setLoading(visible) {
   document.getElementById('loadingScreen').style.display = visible ? 'flex' : 'none';
 }
-
 async function cargarDatos(silent = false) {
   if (!silent) setLoading(true);
-
   // Timeout de seguridad — si tarda más de 15s mostrar error
   const timeout = setTimeout(() => {
     if (!silent) {
@@ -1632,20 +1552,16 @@ async function cargarDatos(silent = false) {
   try {
     const res  = await fetch(APPS_SCRIPT_URL + '?action=datos&t=' + Date.now());
     const data = await res.json();
-
     if (data.error) throw new Error(data.error);
-
     const { jugadores, pagos, grupos } = data;
     window._pagosSheet        = pagos;
     window._gruposSheet       = grupos;
     window._liquidacionesSheet = data.liquidaciones || [];
-
     // Helper para obtener el año de un pago
     function getPagoAnio(p) {
       return String(p['Anio'] || p['Año'] || p['Ano'] || p['anio'] || '2026').trim();
     }
     window.getPagoAnio = getPagoAnio;
-
     // Actualizar opciones del filtro de mes dinámicamente
     const mesesUnicos = [...new Set(pagos.map(p => p['Mes'].slice(0,3) + ' ' + getPagoAnio(p)))]
       .sort((a,b) => {
@@ -1654,24 +1570,19 @@ async function cargarDatos(silent = false) {
         if (ya !== yb) return parseInt(ya) - parseInt(yb);
         return MESES.findIndex(m => m.startsWith(ma)) - MESES.findIndex(m => m.startsWith(mb));
       });
-
     const selMes = document.getElementById('filterMes');
     selMes.innerHTML = '<option value="">Todos los meses</option>' +
       mesesUnicos.map(m => `<option value="${m}">${m}</option>`).join('');
-
     // Seleccionar Abril 2026 por defecto
     const mesActualStr = MESES[MES_ACT].slice(0,3) + ' ' + new Date().getFullYear();
     const optAct = [...selMes.options].find(o => o.value === mesActualStr);
     if (optAct) selMes.value = mesActualStr;
-
     console.log('Meses disponibles:', mesesUnicos);
     if (pagos.length > 0) console.log('Keys de pago:', Object.keys(pagos[0]));
-
     // ── Construir DB (dni -> array de integrantes del grupo) ──
     // Primero mapear dni -> grupo_id
     const dniToGrupo = {};
     grupos.forEach(g => { dniToGrupo[g.dni] = g.grupo_id; });
-
     // Agrupar jugadores por grupo_id
     const grupoMap = {}; // grupo_id -> [jugadores]
     jugadores.forEach(j => {
@@ -1693,19 +1604,16 @@ async function cargarDatos(silent = false) {
         DB[j['DNI']] = [entry];
       }
     });
-
     // Agregar grupos familiares al DB (cada DNI del grupo apunta al mismo array)
     Object.values(grupoMap).forEach(integrantes => {
       integrantes.forEach(j => {
         DB[j.id] = integrantes;
       });
     });
-
     // ── Construir PAGADOS (dni -> [{m, f}]) y PAGADOS_INSCRIPCION ──
     const mesIdx = {};
     MESES.forEach((m, i) => mesIdx[m.toLowerCase()] = i);
     window.PAGADOS_INSCRIPCION = {}; // dni -> true si ya pagó inscripción
-
     pagos.forEach(p => {
       if (p['Estado'] !== 'pagado' && p['Estado'] !== 'bonificado') return;
       const dni = p['DNI'];
@@ -1720,7 +1628,6 @@ async function cargarDatos(silent = false) {
         PAGADOS[dni].push({ m, f: '', bonificado: p['Estado'] === 'bonificado' });
       }
     });
-
     // ── Construir JUGADORAS para el panel admin ──
     JUGADORAS = jugadores.map(j => {
       // Normalizar fechaBaja — puede venir como string ISO, fecha larga, o vacío
@@ -1746,10 +1653,8 @@ async function cargarDatos(silent = false) {
         exento:           String(j['Exento']).toUpperCase() === 'TRUE',
       };
     });
-
     _datosListos = true;
     console.log(`Datos cargados: ${jugadores.length} jugadores, ${pagos.length} pagos, ${grupos.length} grupos`);
-
   } catch(err) {
     console.error('Error cargando datos:', err);
     if (!silent) document.getElementById('loadingError').style.display = 'block';
@@ -1758,28 +1663,22 @@ async function cargarDatos(silent = false) {
     if (!silent) setLoading(false);
   }
 }
-
 let _pagoEnProceso = false;
-
 async function pagar() {
   if (_pagoEnProceso) return; // evitar doble click
   _pagoEnProceso = true;
-
   const jugs     = grupo.filter(p => selIds.has(p.id));
   const mesArr   = [...mesesSel].sort((a,b) => a-b);
   const mes      = mesArr[0];
   const hayAlgunRecargo = mesArr.some(m => tieneRecargoMes(m));
   const primer   = jugs.some(p => esPrimerPago(p.id));
   const soloinscr = jugs.some(p => soloDebeInscripcion(p.id));
-
   // Armar desglose de items
   const desglose = [];
-
   if (primer || soloinscr) {
     const nPrimeros = jugs.filter(p => debeInscripcion(p.id)).length || 1;
     desglose.push({ concepto: `Inscripcion`, monto: INSCRIPCION * nPrimeros });
   }
-
   if (!soloinscr) {
     mesArr.forEach(m => {
       const base      = getPrecio(m);
@@ -1798,9 +1697,7 @@ async function pagar() {
       }
     });
   }
-
   const montoTotal = desglose.reduce((s, d) => s + d.monto, 0);
-
   // Mostrar loading en el botón
   const btn = document.getElementById('btnPagar');
   const original = btn.innerHTML;
@@ -1808,7 +1705,6 @@ async function pagar() {
   btn.style.minWidth = originalWidth + 'px';
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>';
-
   try {
     const payload = {
       action:      'crear_pago',
@@ -1822,7 +1718,6 @@ async function pagar() {
       montoTotal,
       desglose,
     };
-
     // Usar form POST para redirigir a MP (evita CORS y genera una sola preferencia)
     const form = document.createElement('form');
     form.method = 'POST';
@@ -1835,7 +1730,6 @@ async function pagar() {
     form.appendChild(input);
     document.body.appendChild(form);
     form.submit();
-
   } catch (err) {
     _pagoEnProceso = false;
     btn.disabled  = false;
@@ -1844,12 +1738,10 @@ async function pagar() {
     console.error(err);
   }
 }
-
 function volver() {
   document.getElementById('sc-resumen').style.display = 'none';
   document.getElementById('sc-search').style.display  = 'block';
 }
-
 function reset() {
   grupo = []; selIds = new Set();
   document.getElementById('dniInput').value = '';
@@ -1859,6 +1751,7 @@ function reset() {
   document.getElementById('pagos-header').style.display = '';
   document.getElementById('pagos-dni-card').style.display = '';
   document.getElementById('grupoSection').style.display = 'none';
+  document.getElementById('exentosNote').style.display = 'none';
   document.getElementById('alDiaMsg').style.display    = 'none';
   document.getElementById('historialWrap').style.display = 'none';
   document.getElementById('historialBody').style.display = 'none';
@@ -1872,13 +1765,11 @@ function reset() {
   document.getElementById('sc-search').style.display   = 'block';
   window.scrollTo({ top:0, behavior:'smooth' });
 }
-
 // -- ADMIN --
 // status: 'paid' | 'pending' | 'na'
 // recargo: monto de interés cobrado (separado de amount)
 // ADMIN_DATA se construye desde PAGADOS y JUGADORAS del Sheet
 let ADMIN_DATA = [];
-
 function buildAdminData() {
   if (!window._pagosSheet) return;
   ADMIN_DATA = window._pagosSheet
@@ -1916,19 +1807,15 @@ function buildAdminData() {
       paymentId: p['PaymentID'] || '',
     };
   });
-
   // ── Generar cuotas IMPAGAS (no existen como fila en el Sheet) ──
   // El Sheet solo guarda lo cobrado; las impagas se calculan con getMesesDeuda(),
   // igual que en la vista de la jugadora. Esto evita que el panel solo muestre
   // las cuotas pagas.
   const anioActual = String(new Date().getFullYear());
   const existentes = new Set(ADMIN_DATA.map(r => r.dni + '|' + r.month));
-
   JUGADORAS.forEach(j => {
     if (j.estado !== 'activa') return;       // solo activos (no exentos, no baja)
-    const adeudados = getMesesDeuda(j.dni);  // índices de meses sin pagar
-    if (adeudados.length === 0) return;
-
+    const adeudados = getMesesDeuda(j.dni);  // índices de meses sin pagar (ya excluye meses exentos)
     // ¿Paga media cuota? (2º+ integrante de un grupo familiar activo)
     const grupoArr = DB[j.dni] || [];
     const activosGrupo = grupoArr.filter(p => {
@@ -1939,7 +1826,6 @@ function buildAdminData() {
     if (activosGrupo.length > 1) {
       esSecundario = activosGrupo.findIndex(p => String(p.id) === j.dni) > 0;
     }
-
     adeudados.forEach(m => {
       const month = MESES_CORTO[m] + ' ' + anioActual;
       if (existentes.has(j.dni + '|' + month)) return; // ya tiene fila (paga o pendiente)
@@ -1958,11 +1844,33 @@ function buildAdminData() {
         paymentId: '',
       });
     });
+    // ── Meses exentos (vacaciones / receso) → mostrar como "No aplica" gris ──
+    const insMesAdmin = getMesInscripcion(j.dni);
+    MESES_EXENTOS.forEach(key => {
+      const parts  = key.split('-');
+      const anioEx = parts[0];
+      const mEx    = parseInt(parts[1]);
+      if (anioEx !== anioActual) return;      // exención de otro año
+      if (insMesAdmin > mEx) return;          // aún no estaba inscripto ese mes
+      const month = MESES_CORTO[mEx] + ' ' + anioActual;
+      if (existentes.has(j.dni + '|' + month)) return; // ya tiene fila (p. ej. la pagó igual)
+      existentes.add(j.dni + '|' + month);
+      ADMIN_DATA.push({
+        name:    j.nombre,
+        dni:     j.dni,
+        cat:     j.cat,
+        month,
+        amount:  0,
+        recargo: 0,
+        date:    '-',
+        status:  'na',
+        origen:  '',
+        paymentId: '',
+      });
+    });
   });
-
   console.log('ADMIN_DATA sample:', ADMIN_DATA.slice(0,3));
 }
-
 function renderAdminTable() {
   if (!window._pagosSheet) {
     document.getElementById('adminTable').innerHTML =
@@ -1974,19 +1882,17 @@ function renderAdminTable() {
   const fCat       = document.getElementById('filterCat').value;
   const fEstado    = document.getElementById('filterEstado').value;
   const fIntegrante = document.getElementById('filterIntegrante').value.toLowerCase().trim();
-
   const filtered = ADMIN_DATA.filter(r =>
     (!fMes       || r.month === fMes) &&
     (!fCat       || r.cat   === fCat) &&
     (!fEstado    || r.status === fEstado) &&
     (!fIntegrante || r.name.toLowerCase().includes(fIntegrante))
   );
-
   const recaudado   = filtered.filter(r => r.status === 'paid').reduce((s,r) => s + r.amount, 0);
   const otros = filtered.filter(r => r.status === 'paid').reduce((s,r) => s + r.recargo, 0)
-              + window._pagosSheet.filter(p => 
-                  p['Mes'] === 'Inscripcion' && 
-                  p['Estado'] === 'pagado' && 
+              + window._pagosSheet.filter(p =>
+                  p['Mes'] === 'Inscripcion' &&
+                  p['Estado'] === 'pagado' &&
                   p['Origen'] === 'mercadopago'
                 ).reduce((s,p) => s + (parseInt(p['Monto'])||0), 0);
   const porCobrar = filtered
@@ -1998,7 +1904,6 @@ function renderAdminTable() {
   const totalN = JUGADORAS.filter(j => j.estado === 'activa').length;
   const pctPag      = totalN > 0 ? Math.round(pagadasN    / totalN * 100) : 0;
   const pctPend     = totalN > 0 ? Math.round(pendientesN / totalN * 100) : 0;
-
   document.getElementById('statPagadas').textContent       = pagadasN;
   document.getElementById('statPagadasTotal').textContent  = totalN;
   document.getElementById('statPagadasPct').textContent    = pctPag + '%';
@@ -2011,10 +1916,8 @@ function renderAdminTable() {
   document.getElementById('progressBar').style.width       = pctPag + '%';
   const mesLabel = document.getElementById('filterMes').value || 'Todos los meses';
   document.getElementById('statMesLabel').textContent = mesLabel;
-
   const statusLabel = { paid:'✅ Pago', pending:'⏳ Pendiente', na:'— No aplica', bonificado:'🎁 Bonificado' };
   const statusBadge = { paid:'b-paid', pending:'b-pending', na:'b-na', bonificado:'b-bonificado' };
-
   document.getElementById('adminTable').innerHTML = filtered.length === 0
     ? `<tr><td colspan="6" style="text-align:center;color:var(--text-soft);padding:24px">Sin resultados para este filtro</td></tr>`
     : filtered.map(r => `
@@ -2030,7 +1933,6 @@ function renderAdminTable() {
         <td><span class="badge" style="background:var(--pink-soft);color:var(--pink-dark);white-space:nowrap">${r.cat}</span></td>
       </tr>`).join('');
 }
-
 function checkAdmin() {
   if (document.getElementById('adminPass').value === '1234') {
     document.getElementById('admin-login').style.display = 'none';
@@ -2052,7 +1954,6 @@ function checkAdmin() {
     document.getElementById('adminPass').placeholder = 'Contraseña incorrecta';
   }
 }
-
 function logoutAdmin() {
   document.getElementById('admin-login').style.display = 'block';
   document.getElementById('admin-panel').style.display = 'none';
@@ -2060,12 +1961,10 @@ function logoutAdmin() {
   document.getElementById('adminPass').style.borderColor = '';
   document.getElementById('adminPass').placeholder = 'Contraseña';
 }
-
 function toggleMenu() {
   document.getElementById('navBurger').classList.toggle('open');
   document.getElementById('navMenu').classList.toggle('open');
 }
-
 function showView(v, btn) {
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-menu-item').forEach(el => el.classList.remove('active'));
@@ -2075,14 +1974,11 @@ function showView(v, btn) {
   document.getElementById('navBurger').classList.remove('open');
   document.getElementById('navMenu').classList.remove('open');
 }
-
 // -- ACCIONES ADMIN --
 let _accionDni = '';
-
 function cerrarModal(id) {
   document.getElementById(id).style.display = 'none';
 }
-
 // BAJA
 function abrirBaja(dni, nombre) {
   _accionDni = dni;
@@ -2090,18 +1986,14 @@ function abrirBaja(dni, nombre) {
   document.getElementById('bajaMotivo').value = '';
   document.getElementById('modalBaja').style.display = 'flex';
 }
-
 async function confirmarBaja() {
   const j = JUGADORAS.find(x => x.dni === _accionDni);
   if (!j) return;
-
   const btn = document.querySelector('#modalBaja .btn-primary');
   btn.disabled = true;
   btn.textContent = 'Guardando...';
-
   const hoy    = new Date().toISOString().split('T')[0];
   const motivo = document.getElementById('bajaMotivo').value.trim();
-
   try {
     await fetch(APPS_SCRIPT_URL, {
       method:  'POST',
@@ -2115,22 +2007,17 @@ async function confirmarBaja() {
         motivo,
       }),
     });
-
     // Actualizar en memoria
     j.estado    = 'baja';
     j.fechaBaja = hoy;
-
     cerrarModal('modalBaja');
-
     // Resetear botón para próxima baja
     btn.disabled = false;
     btn.textContent = 'Dar de baja';
-
     // Recargar datos del Sheet para reflejar cambios reales
     await cargarDatos();
     renderIntegrantesTable();
     renderCrecimiento();
-
     const toast = document.createElement('div');
     toast.textContent = `🔴 ${j.nombre.split(',')[0]} dado/a de baja`;
     Object.assign(toast.style, {
@@ -2140,7 +2027,6 @@ async function confirmarBaja() {
     });
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
-
   } catch(err) {
     console.error('Error dando de baja:', err);
     btn.disabled = false;
@@ -2148,7 +2034,6 @@ async function confirmarBaja() {
     alert('No se pudo guardar. Intentá de nuevo.');
   }
 }
-
 // GRUPO FAMILIAR
 function abrirGrupo(dni, nombre) {
   _accionDni = dni;
@@ -2161,7 +2046,6 @@ function abrirGrupo(dni, nombre) {
   document.getElementById('btnConfirmarGrupo').disabled = true;
   document.getElementById('modalGrupo').style.display = 'flex';
 }
-
 function buscarGrupoAdmin() {
   const q   = normDNI(document.getElementById('grupoDniInput').value.trim());
   const err = document.getElementById('grupoDniError');
@@ -2183,18 +2067,15 @@ function buscarGrupoAdmin() {
     document.getElementById('btnConfirmarGrupo').disabled = !document.getElementById('grupoRelacion').value;
   };
 }
-
 async function confirmarGrupo() {
   const dni2     = normDNI(document.getElementById('grupoDniInput').value.trim());
   const relacion = document.getElementById('grupoRelacion').value;
   const j1 = JUGADORAS.find(x => x.dni === _accionDni);
   const j2 = JUGADORAS.find(x => x.dni === dni2);
   if (!j1 || !j2 || !relacion) return;
-
   const btn = document.getElementById('btnConfirmarGrupo');
   btn.disabled = true;
   btn.textContent = 'Guardando...';
-
   try {
     const payload = {
       action:   'guardar_grupo',
@@ -2202,7 +2083,6 @@ async function confirmarGrupo() {
       familiar: { dni: j2.dni, nombre: j2.nombre },
       relacion,
     };
-
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = APPS_SCRIPT_URL;
@@ -2212,7 +2092,6 @@ async function confirmarGrupo() {
     input.name  = 'payload';
     input.value = JSON.stringify(payload);
     form.appendChild(input);
-
     // Usar fetch para no redirigir la página
     const res = await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
@@ -2220,7 +2099,6 @@ async function confirmarGrupo() {
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload),
     });
-
     // Actualizar grupos en memoria para que tome efecto inmediato
     // Buscar si ya existe un grupo para el titular
     let grupoId = null;
@@ -2240,10 +2118,8 @@ async function confirmarGrupo() {
     if (window._gruposSheet) {
       window._gruposSheet.push({ grupo_id: grupoId, dni: j2.dni, nombre: j2.nombre, rol: 'familiar' });
     }
-
     // Recargar datos para reflejar el cambio en DB y pagos
     await cargarDatos();
-
     cerrarModal('modalGrupo');
     const toast = document.createElement('div');
     toast.textContent = `✅ ${j1.nombre.split(',')[0]} asociado/a con ${j2.nombre.split(',')[0]}`;
@@ -2254,7 +2130,6 @@ async function confirmarGrupo() {
     });
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 3000);
-
   } catch(err) {
     console.error('Error guardando grupo:', err);
     btn.disabled = false;
@@ -2262,15 +2137,12 @@ async function confirmarGrupo() {
     alert('No se pudo guardar. Intentá de nuevo.');
   }
 }
-
 try {
   const saved = localStorage.getItem('lomas_dni');
   if (saved) document.getElementById('dniInput').value = saved;
 } catch(e) {}
-
 document.addEventListener('DOMContentLoaded', () => {
   initHome();
-
   // Hash routing — ir directo a la sección según la URL
   const hash = window.location.hash.replace('#', '');
   const rutas = { pagos: 'player', inscripcion: 'inscripcion', admin: 'admin' };
@@ -2285,7 +2157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-
 // Actualizar hash cuando se cambia de sección
 const _showViewOrig = showView;
 window.showView = function(view, el) {
@@ -2294,10 +2165,8 @@ window.showView = function(view, el) {
   const hash = hashes[view] || '';
   history.replaceState(null, '', hash ? '#' + hash : window.location.pathname);
 };
-
 // Cargar datos reales del Sheet al iniciar
 cargarDatos();
-
 // Manejar retorno desde MP
 (function() {
   const params = new URLSearchParams(window.location.search);
@@ -2320,7 +2189,6 @@ cargarDatos();
     alert('Tu pago está pendiente de acreditación. Te avisaremos cuando se confirme.');
   }
 })();
-
 // -- ADMIN INNER TABS --
 async function switchAdminTab(tab) {
   document.getElementById('admin-pagos-section').style.display    = tab === 'pagos'         ? 'block' : 'none';
@@ -2328,32 +2196,26 @@ async function switchAdminTab(tab) {
   document.getElementById('admin-liquidaciones').style.display    = tab === 'liquidaciones' ? 'block' : 'none';
   document.querySelectorAll('.admin-tab').forEach(el => el.classList.remove('active'));
   document.getElementById('atab-' + tab).classList.add('active');
-
   // Mostrar barra de carga debajo de los tabs
   const loadingBar = document.getElementById('adminLoadingBar');
   loadingBar.style.display = 'flex';
   await cargarDatos(true);
   loadingBar.style.display = 'none';
-
   if (tab === 'pagos')         renderAdminTable();
   if (tab === 'jugadoras')     { renderIntegrantesTable(); renderCrecimiento(); }
   if (tab === 'liquidaciones') renderLiquidaciones();
 }
-
 function renderLiquidaciones() {
   const liq = window._liquidacionesSheet || [];
   const wrap = document.getElementById('liquidacionesWrap');
-
   if (liq.length === 0) {
     wrap.innerHTML = `<div style="text-align:center;padding:32px;color:var(--text-soft);font-size:13px">
       No hay liquidaciones aún.<br>Se generan automáticamente el 1° de cada mes.
     </div>`;
     return;
   }
-
   // Ordenar más reciente primero
   const sorted = [...liq].reverse();
-
   wrap.innerHTML = sorted.map(l => {
     const cuotas    = parseInt(l['Cuotas'])      || 0;
     const comision  = parseInt(l['Comision_MP']) || 0;
@@ -2364,7 +2226,6 @@ function renderLiquidaciones() {
     const recargos  = parseInt(l['Recargos'])    || 0;
     const impagas   = parseInt(l['Impagas'])     || 0;
     const fondoClub = inscr + recargos;
-
     return `
     <div style="background:var(--white);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;overflow:hidden;box-shadow:var(--shadow)">
       <!-- Header -->
@@ -2372,14 +2233,12 @@ function renderLiquidaciones() {
         <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--white)">${l['Mes']} ${l['Anio']}</div>
         <span style="font-size:11px;font-weight:600;background:var(--pink);color:white;padding:3px 10px;border-radius:20px">${l['Estado']}</span>
       </div>
-
       <!-- Sueldo profe destacado -->
       <div style="padding:18px;background:var(--pink-bg);border-bottom:1px solid var(--border);text-align:center">
         <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--pink-dark);margin-bottom:4px">💸 Sueldo por profe</div>
         <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--black)">$${sueldo.toLocaleString('es-AR')}</div>
         <div style="font-size:12px;color:var(--text-soft);margin-top:4px">Base total $${base.toLocaleString('es-AR')} ÷ 4 profes</div>
       </div>
-
       <!-- Detalle -->
       <div style="padding:16px 18px">
         <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-soft);margin-bottom:10px">Detalle del cálculo</div>
@@ -2402,7 +2261,6 @@ function renderLiquidaciones() {
             <span style="color:var(--pink-dark)">$${base.toLocaleString('es-AR')}</span>
           </div>
         </div>
-
         <!-- Fondo club -->
         <div style="margin-top:14px;padding:12px;background:var(--pink-bg);border-radius:8px;border:1px solid var(--pink-light)">
           <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-soft);margin-bottom:8px">🏑 Fondo del club</div>
@@ -2425,11 +2283,9 @@ function renderLiquidaciones() {
     </div>`;
   }).join('');
 }
-
 async function cerrarMesManual() {
   const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
   const hoy = new Date();
-
   // Mostrar modal para elegir mes
   const modal = document.createElement('div');
   modal.style.cssText = 'position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:16px';
@@ -2452,18 +2308,14 @@ async function cerrarMesManual() {
       </div>
     </div>`;
   document.body.appendChild(modal);
-
   document.getElementById('modalCerrarCancel').onclick = () => modal.remove();
-
   document.getElementById('modalCerrarOk').onclick = async () => {
     const mes  = parseInt(document.getElementById('modalMesSelect').value);
     const anio = parseInt(document.getElementById('modalAnioSelect').value);
     const mesNombre = MESES[mes];
     modal.remove();
-
     const btn = document.querySelector('[onclick="cerrarMesManual(this)"]') || document.querySelector('[onclick^="cerrarMes"]');
     if (btn) { btn.disabled = true; btn.textContent = 'Calculando...'; }
-
     try {
       const url = `${APPS_SCRIPT_URL}?action=cerrar_mes&mes=${mes}&anio=${anio}&t=${Date.now()}`;
       const res  = await fetch(url);
@@ -2479,7 +2331,6 @@ async function cerrarMesManual() {
     }
   };
 }
-
 function renderCrecimiento() {
   // Construir mapa mes -> { altas, bajas }
   const meses = {};
@@ -2497,10 +2348,8 @@ function renderCrecimiento() {
       meses[m].bajas++;
     }
   });
-
   const sorted = Object.keys(meses).sort();
   let acumulado = 0;
-
   document.getElementById('crecimientoTable').innerHTML = sorted.map(m => {
     const { altas, bajas } = meses[m];
     const neto = altas - bajas;
@@ -2522,25 +2371,20 @@ function renderCrecimiento() {
       </tr>`;
   }).join('');
 }
-
 // -- JUGADORAS DATA (demo) --
 // inscripcionMes: índice del mes en que se inscribió (0=Ene)
 const STATUS_JUGADORA = { activa:'✅ Activo/a', pendiente:'⏳ Pendiente', baja:'🔴 Baja', exenta:'— No aplica' };
 const BADGE_JUGADORA  = { activa:'b-paid', pendiente:'b-pending', baja:'b-overdue', exenta:'b-na' };
-
 function renderIntegrantesTable() {
   const fNombre = document.getElementById('filterIntegranteNombre').value.toLowerCase().trim();
   const fCat    = document.getElementById('filterIntegranteCat').value;
   const fEst    = document.getElementById('filterIntegranteEstado').value;
-
   const filtered = JUGADORAS.filter(j =>
     (!fNombre || j.nombre.toLowerCase().includes(fNombre)) &&
     (!fCat    || j.cat === fCat) &&
     (!fEst    || j.estado === fEst)
   );
-
   document.getElementById('jugadorasCount').textContent = filtered.length;
-
   document.getElementById('jugadorasTable').innerHTML = filtered.length === 0
     ? `<tr><td colspan="7" style="text-align:center;color:var(--text-soft);padding:24px">Sin resultados</td></tr>`
     : filtered.map(j => `
@@ -2567,16 +2411,13 @@ function renderIntegrantesTable() {
         </td>
       </tr>`).join('');
 }
-
 function formatFecha(iso) {
   if (!iso) return '-';
   const [y,m,d] = iso.split('-');
   return `${d}/${m}/${y.slice(2)}`;
 }
-
 // -- INSCRIPCIÓN --
 function normDNI(raw) { return raw.replace(/[\.\s\-,]/g,''); }
-
 // Capitaliza primera letra de cada palabra, respeta partículas comunes
 function normalizarNombre(raw) {
   if (!raw) return '';
@@ -2589,25 +2430,20 @@ function normalizarNombre(raw) {
     })
     .join(' ');
 }
-
 function validarDNI(raw) {
   const d = normDNI(raw);
   return /^\d{7,8}$/.test(d);
 }
-
 function buscarGrupoDNI() {
   const raw  = document.getElementById('f-grupo-dni').value.trim();
   const q    = normDNI(raw);
   const errEl = document.getElementById('f-grupo-error');
   const resEl = document.getElementById('f-grupo-result');
   const relWrap = document.getElementById('f-relacion-wrap');
-
   errEl.style.display = 'none';
   resEl.style.display = 'none';
   relWrap.style.display = 'none';
-
   if (q.length < 7) return;
-
   // Buscar en JUGADORAS por DNI
   const found = JUGADORAS.find(j => j.dni === q);
   if (!found) {
@@ -2619,7 +2455,6 @@ function buscarGrupoDNI() {
   resEl.style.display  = 'block';
   relWrap.style.display = 'block';
 }
-
 function submitInscripcion() {
   const apellido = normalizarNombre(document.getElementById('f-apellido').value);
   const nombre   = normalizarNombre(document.getElementById('f-nombre').value);
@@ -2628,11 +2463,9 @@ function submitInscripcion() {
   const tel      = document.getElementById('f-tel').value.trim();
   const errGlob  = document.getElementById('f-error-global');
   const dniErr   = document.getElementById('f-dni-error');
-
   dniErr.style.display = 'none';
   errGlob.style.display = 'none';
   document.getElementById('f-dni').classList.remove('error');
-
   if (!apellido || !nombre || !cat || !tel) {
     errGlob.textContent = 'Completá todos los campos obligatorios.';
     errGlob.style.display = 'block';
@@ -2643,18 +2476,15 @@ function submitInscripcion() {
     dniErr.style.display = 'block';
     return;
   }
-
   const tutorDniRaw = document.getElementById('f-tutor-dni').value.trim();
   if (tutorDniRaw && !validarDNI(tutorDniRaw)) {
     document.getElementById('f-tutor-dni').classList.add('error');
     document.getElementById('f-tutor-dni-error').style.display = 'block';
     return;
   }
-
   const dniNorm = normDNI(dniRaw);
   const hoy = new Date();
   const mesInicio = hoy.getDate() <= 10 ? hoy.getMonth() : hoy.getMonth() + 1;
-
   console.log('Nueva inscripción:', {
     apellido, nombre, dni: dniNorm, cat, tel,
     tutor: {
@@ -2668,19 +2498,15 @@ function submitInscripcion() {
     fechaInscripcion: hoy.toISOString().split('T')[0],
     mesInicio,
   });
-
   document.getElementById('form-exito-msg').innerHTML =
     `<strong>${apellido}, ${nombre}</strong> ya es parte de Lomas Hockey Club 🎉<br>
     Podés abonar tu inscripción y primera cuota ahora.`;
-
   // Guardar DNI normalizado para el botón de pago
   document.getElementById('btnIrAPagar').onclick = () => irAPagar(dniNorm);
-
   document.getElementById('sc-form').style.display = 'none';
   document.getElementById('sc-form-exito').style.display = 'block';
   window.scrollTo({ top:0, behavior:'smooth' });
 }
-
 function resetForm() {
   ['f-apellido','f-nombre','f-dni','f-tel',
    'f-tutor-apellido','f-tutor-nombre','f-tutor-dni','f-tutor-tel',
@@ -2715,13 +2541,11 @@ function resetForm() {
     </div>
   </div>
 </div>
-
 <!-- ══ MODAL GRUPO FAMILIAR ══ -->
 <div id="modalGrupo" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:16px">
   <div style="background:var(--white);border-radius:16px;padding:24px;width:100%;max-width:380px;box-shadow:0 8px 40px rgba(0,0,0,0.2)">
     <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--black);margin-bottom:6px">Asociar grupo familiar</div>
     <div style="font-size:13px;color:var(--text-soft);margin-bottom:16px">Asociar a <strong id="grupoNombre"></strong> con otro integrante ya registrado.</div>
-
     <div style="margin-bottom:12px">
       <label class="form-label">DNI del integrante a asociar</label>
       <input class="input-field" id="grupoDniInput" type="text" placeholder="Ej: 12345678" maxlength="12" inputmode="numeric" oninput="buscarGrupoAdmin()">
@@ -2731,7 +2555,6 @@ function resetForm() {
         <div style="font-size:11px;color:var(--text-soft)" id="grupoAdminCat">—</div>
       </div>
     </div>
-
     <div id="grupoRelacionWrap" style="display:none;margin-bottom:16px">
       <label class="form-label">Relación</label>
       <select class="input-field" id="grupoRelacion" style="cursor:pointer">
@@ -2743,13 +2566,11 @@ function resetForm() {
         <option value="otra">Otra relación familiar</option>
       </select>
     </div>
-
     <div style="display:flex;gap:10px">
       <button class="btn-ghost" style="flex:1" onclick="cerrarModal('modalGrupo')">Cancelar</button>
       <button class="btn-primary" style="flex:1" id="btnConfirmarGrupo" onclick="confirmarGrupo()" disabled>Asociar</button>
     </div>
   </div>
 </div>
-
 </body>
 </html>
