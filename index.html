@@ -1623,7 +1623,6 @@ async function cargarDatos(silent = false) {
         exento:  false,
         fechaInscripcion: j['Fecha inscripcion'] || j['Fecha Inscripcion'] || j['fecha inscripcion'] || '',
       };
-      if (j['DNI'] === '49937817') console.log('Vilchez entry:', entry, '| Sheet keys:', Object.keys(j));
       if (gid) {
         if (!grupoMap[gid]) grupoMap[gid] = [];
         grupoMap[gid].push(entry);
@@ -2556,25 +2555,68 @@ async function submitInscripcion() {
   const original = btn.innerHTML;
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>Enviando...';
+
+  // ── LOGS DE DEPURACIÓN ──
+  console.log('%c[INSCRIPCIÓN] 1) Payload a enviar:', 'color:#c4758f;font-weight:bold', payload);
+  console.log('%c[INSCRIPCIÓN] 2) URL backend:', 'color:#c4758f;font-weight:bold', APPS_SCRIPT_URL);
+
+  let respuestaBackend = null; // texto crudo que responde el backend
   try {
-    await fetch(APPS_SCRIPT_URL, {
+    // Intento en modo CORS para PODER LEER la respuesta del backend
+    const resp = await fetch(APPS_SCRIPT_URL, {
       method:  'POST',
-      mode:    'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body:    JSON.stringify(payload),
+      redirect: 'follow',
     });
+    respuestaBackend = await resp.text();
+    console.log('%c[INSCRIPCIÓN] 3) HTTP status:', 'color:green;font-weight:bold', resp.status);
+    console.log('%c[INSCRIPCIÓN] 4) Respuesta backend (cruda):', 'color:green;font-weight:bold', respuestaBackend);
+    try {
+      const j = JSON.parse(respuestaBackend);
+      console.log('%c[INSCRIPCIÓN] 5) Respuesta backend (JSON):', 'color:green;font-weight:bold', j);
+      if (j && j.ok === false && j.reason === 'dni_existente') {
+        btn.disabled = false;
+        btn.innerHTML = original;
+        errGlob.textContent = 'Ese DNI ya está registrado en el club.';
+        errGlob.style.display = 'block';
+        return;
+      }
+      if (j && j.error) {
+        console.error('[INSCRIPCIÓN] El backend devolvió un error:', j.error);
+      }
+    } catch (e) {
+      console.warn('[INSCRIPCIÓN] La respuesta no es JSON (¿HTML de login/redirect?). Ver texto crudo arriba.');
+    }
   } catch (err) {
-    console.error('Error enviando inscripción:', err);
-    btn.disabled = false;
-    btn.innerHTML = original;
-    errGlob.textContent = 'No pudimos enviar la inscripción. Revisá tu conexión e intentá de nuevo.';
-    errGlob.style.display = 'block';
-    return;
+    // Falló leer la respuesta (típico CORS). Reintento en no-cors para al menos disparar el guardado.
+    console.error('%c[INSCRIPCIÓN] 3b) No se pudo leer la respuesta (posible CORS). Reintento no-cors…', 'color:orange;font-weight:bold', err);
+    try {
+      await fetch(APPS_SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{ 'Content-Type':'text/plain' }, body: JSON.stringify(payload) });
+      console.warn('[INSCRIPCIÓN] Reenviado en modo no-cors (no se puede leer la respuesta, pero el POST salió).');
+    } catch (e2) {
+      console.error('[INSCRIPCIÓN] También falló el reintento no-cors:', e2);
+      btn.disabled = false;
+      btn.innerHTML = original;
+      errGlob.textContent = 'No pudimos enviar la inscripción. Revisá tu conexión e intentá de nuevo.';
+      errGlob.style.display = 'block';
+      return;
+    }
   }
   btn.disabled = false;
   btn.innerHTML = original;
-  // Refrescar datos para que el nuevo integrante quede disponible para el pago
-  try { await cargarDatos(true); } catch (e) {}
+  // Refrescar datos y VERIFICAR si el DNI ya quedó en la base
+  try {
+    await cargarDatos(true);
+    const quedoGuardado = !!DB[dniNorm];
+    console.log(
+      '%c[INSCRIPCIÓN] 6) ¿El DNI ' + dniNorm + ' aparece en la base tras recargar? → ' + quedoGuardado,
+      'color:' + (quedoGuardado ? 'green' : 'red') + ';font-weight:bold'
+    );
+    if (!quedoGuardado) {
+      console.warn('[INSCRIPCIÓN] OJO: el POST salió pero el DNI NO está en la base. Casi seguro la URL de APPS_SCRIPT_URL apunta a un despliegue viejo (sin handleInscribir).');
+    }
+  } catch (e) { console.error('[INSCRIPCIÓN] Error recargando datos:', e); }
   document.getElementById('form-exito-msg').innerHTML =
     `<strong>${apellido}, ${nombre}</strong> ya es parte de Lomas Hockey Club 🎉<br>
     Ya podés abonar la inscripción y la primera cuota.`;
