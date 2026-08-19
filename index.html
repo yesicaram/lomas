@@ -807,7 +807,7 @@
         </div>
         <div style="margin-bottom:12px">
           <label class="form-label">Categoría *</label>
-          <select class="input-field" id="f-cat" style="cursor:pointer">
+          <select class="input-field" id="f-cat" style="cursor:pointer" onchange="onCatChange()">
             <option value="">Seleccioná una categoría</option>
             <option value="1ra">1ra</option>
             <option value="6ta">6ta (15 a 16 años)</option>
@@ -821,24 +821,24 @@
           <input class="input-field" id="f-tel" type="tel" placeholder="Ej: 2664123456" inputmode="tel" autocomplete="tel">
         </div>
       </div>
-      <div class="card" id="f-tutor-card">
-        <div class="card-heading"><div class="card-heading-dot"></div>Tutor/a</div>
-        <div style="font-size:12px;color:var(--text-soft);margin-bottom:14px;line-height:1.5">Para integrantes menores de edad</div>
+      <div class="card" id="f-tutor-card" style="display:none">
+        <div class="card-heading"><div class="card-heading-dot"></div>Tutor/a responsable</div>
+        <div style="font-size:12px;color:var(--text-soft);margin-bottom:14px;line-height:1.5">Obligatorio para integrantes menores de edad (Formativas, 7ma y 6ta).</div>
         <div style="margin-bottom:12px">
-          <label class="form-label">Apellido</label>
+          <label class="form-label">Apellido *</label>
           <input class="input-field" id="f-tutor-apellido" type="text" placeholder="Apellido">
         </div>
         <div style="margin-bottom:12px">
-          <label class="form-label">Nombre/s</label>
+          <label class="form-label">Nombre/s *</label>
           <input class="input-field" id="f-tutor-nombre" type="text" placeholder="Nombre/s">
         </div>
         <div style="margin-bottom:12px">
-          <label class="form-label">DNI del responsable</label>
+          <label class="form-label">DNI del responsable *</label>
           <input class="input-field" id="f-tutor-dni" type="text" placeholder="Ej: 12345678" maxlength="12" inputmode="numeric">
           <div class="error-msg" id="f-tutor-dni-error">DNI inválido.</div>
         </div>
         <div>
-          <label class="form-label">Teléfono</label>
+          <label class="form-label">Teléfono *</label>
           <input class="input-field" id="f-tutor-tel" type="tel" placeholder="2664123456" inputmode="tel">
         </div>
       </div>
@@ -870,8 +870,8 @@
         </div>
       </div>
       <div id="f-error-global" class="error-msg" style="margin-bottom:10px;font-size:13px"></div>
-      <button class="btn-primary" onclick="submitInscripcion()">Enviar inscripción</button>
-      <div class="mp-note" style="margin-top:8px">Los datos serán revisados por el club antes de la activación</div>
+      <button class="btn-primary" id="btnEnviarInscripcion" onclick="submitInscripcion()">Enviar inscripción</button>
+      <div class="mp-note" style="margin-top:8px">Al enviar quedás registrado/a y ya podés abonar la inscripción y la primera cuota</div>
     </div>
     <!-- Éxito inscripción -->
     <div id="sc-form-exito" style="display:none">
@@ -2483,7 +2483,16 @@ function buscarGrupoDNI() {
   resEl.style.display  = 'block';
   relWrap.style.display = 'block';
 }
-function submitInscripcion() {
+// Categorías que requieren tutor/a (menores de edad)
+const CATS_CON_TUTOR = new Set(['Formativas', '7ma', '6ta']);
+// Mostrar/ocultar la sección Tutor/a según la categoría elegida
+function onCatChange() {
+  const cat  = document.getElementById('f-cat').value;
+  const card = document.getElementById('f-tutor-card');
+  if (!card) return;
+  card.style.display = CATS_CON_TUTOR.has(cat) ? 'block' : 'none';
+}
+async function submitInscripcion() {
   const apellido = normalizarNombre(document.getElementById('f-apellido').value);
   const nombre   = normalizarNombre(document.getElementById('f-nombre').value);
   const dniRaw   = document.getElementById('f-dni').value.trim();
@@ -2494,6 +2503,8 @@ function submitInscripcion() {
   dniErr.style.display = 'none';
   errGlob.style.display = 'none';
   document.getElementById('f-dni').classList.remove('error');
+  document.getElementById('f-tutor-dni').classList.remove('error');
+  document.getElementById('f-tutor-dni-error').style.display = 'none';
   if (!apellido || !nombre || !cat || !tel) {
     errGlob.textContent = 'Completá todos los campos obligatorios.';
     errGlob.style.display = 'block';
@@ -2504,8 +2515,19 @@ function submitInscripcion() {
     dniErr.style.display = 'block';
     return;
   }
-  const tutorDniRaw = document.getElementById('f-tutor-dni').value.trim();
-  if (tutorDniRaw && !validarDNI(tutorDniRaw)) {
+  // Datos del tutor
+  const requiereTutor = CATS_CON_TUTOR.has(cat);
+  const tApellido = normalizarNombre(document.getElementById('f-tutor-apellido').value);
+  const tNombre   = normalizarNombre(document.getElementById('f-tutor-nombre').value);
+  const tDniRaw   = document.getElementById('f-tutor-dni').value.trim();
+  const tTel      = document.getElementById('f-tutor-tel').value.trim();
+  // Tutor obligatorio para categorías de menores
+  if (requiereTutor && (!tApellido || !tNombre || !tDniRaw || !tTel)) {
+    errGlob.textContent = 'Para esta categoría (menores de edad) tenés que completar los datos del tutor/a.';
+    errGlob.style.display = 'block';
+    return;
+  }
+  if (tDniRaw && !validarDNI(tDniRaw)) {
     document.getElementById('f-tutor-dni').classList.add('error');
     document.getElementById('f-tutor-dni-error').style.display = 'block';
     return;
@@ -2513,22 +2535,49 @@ function submitInscripcion() {
   const dniNorm = normDNI(dniRaw);
   const hoy = new Date();
   const mesInicio = hoy.getDate() <= 10 ? hoy.getMonth() : hoy.getMonth() + 1;
-  console.log('Nueva inscripción:', {
-    apellido, nombre, dni: dniNorm, cat, tel,
+  const payload = {
+    action:   'inscribir',
+    apellido, nombre,
+    dni:      dniNorm,
+    cat, tel,
     tutor: {
-      apellido: normalizarNombre(document.getElementById('f-tutor-apellido').value),
-      nombre:   normalizarNombre(document.getElementById('f-tutor-nombre').value),
-      dni:      tutorDniRaw ? normDNI(tutorDniRaw) : '',
-      tel:      document.getElementById('f-tutor-tel').value.trim(),
+      apellido: tApellido,
+      nombre:   tNombre,
+      dni:      tDniRaw ? normDNI(tDniRaw) : '',
+      tel:      tTel,
     },
     grupoDni:  normDNI(document.getElementById('f-grupo-dni').value.trim()),
     relacion:  document.getElementById('f-relacion').value,
     fechaInscripcion: hoy.toISOString().split('T')[0],
     mesInicio,
-  });
+  };
+  // Enviar al backend (Apps Script) y guardar en la hoja
+  const btn = document.getElementById('btnEnviarInscripcion');
+  const original = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Enviando...';
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body:    JSON.stringify(payload),
+    });
+  } catch (err) {
+    console.error('Error enviando inscripción:', err);
+    btn.disabled = false;
+    btn.innerHTML = original;
+    errGlob.textContent = 'No pudimos enviar la inscripción. Revisá tu conexión e intentá de nuevo.';
+    errGlob.style.display = 'block';
+    return;
+  }
+  btn.disabled = false;
+  btn.innerHTML = original;
+  // Refrescar datos para que el nuevo integrante quede disponible para el pago
+  try { await cargarDatos(true); } catch (e) {}
   document.getElementById('form-exito-msg').innerHTML =
     `<strong>${apellido}, ${nombre}</strong> ya es parte de Lomas Hockey Club 🎉<br>
-    Podés abonar tu inscripción y primera cuota ahora.`;
+    Ya podés abonar la inscripción y la primera cuota.`;
   // Guardar DNI normalizado para el botón de pago
   document.getElementById('btnIrAPagar').onclick = () => irAPagar(dniNorm);
   document.getElementById('sc-form').style.display = 'none';
@@ -2546,9 +2595,11 @@ function resetForm() {
   document.getElementById('f-cat').value = '';
   document.getElementById('f-relacion').value = '';
   document.getElementById('f-dni-error').style.display = 'none';
+  document.getElementById('f-tutor-dni-error').style.display = 'none';
   document.getElementById('f-error-global').style.display = 'none';
   document.getElementById('f-grupo-result').style.display = 'none';
   document.getElementById('f-relacion-wrap').style.display = 'none';
+  onCatChange(); // ocultar Tutor/a (categoría vacía)
   document.getElementById('sc-form-exito').style.display = 'none';
   document.getElementById('sc-form').style.display = 'block';
   window.scrollTo({ top:0, behavior:'smooth' });
