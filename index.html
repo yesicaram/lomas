@@ -916,7 +916,8 @@ const CONFIG = {
   CUOTA_ABR_JUL: 15000, // Cuota regular Abril-Julio
   CUOTA_AGO_DIC: 18000, // Cuota regular Agosto-Diciembre
   CUOTA_FAMILIAR_DESC: 0.5, // % de descuento para 2do familiar y siguientes (50%)
-  DIA_LIMITE:    15,    // Día límite para pagar sin recargo
+  DIA_LIMITE:    15,    // Día límite general para pagar sin recargo
+  GRACIA_DEFAULT: 30,   // Días de gracia por defecto para quienes tienen prórroga (fallback)
 };
 const RECARGO    = CONFIG.RECARGO;
 const INSCRIPCION = CONFIG.INSCRIPCION;
@@ -1011,32 +1012,46 @@ const GRACIA_EXTENDIDA = new Set([
   '55843978', // Giménez Blanco — 90 días
   '56089911', // Blanco, Alison Yareli — 90 días
 ]);
-// Días de gracia por DNI (default = CONFIG.DIA_LIMITE, puede ser más)
+// Días de gracia por DNI — FALLBACK si la hoja no trae el campo 'Gracia'.
+// El valor es la cantidad de días de gracia (ej: 30, 90). El campo 'Gracia'
+// de la hoja de Jugadores tiene prioridad sobre esta lista.
 const GRACIA_DIAS = {
   '55843978': 90,
   '56089911': 90,
 };
-function tieneRecargoMes(mes) {
-  // Mes anterior al actual → recargo siempre
-  if (mes < MES_ACT) return true;
-  // Mes actual → verificar día límite y gracia
-  if (HOY_DIA <= CONFIG.DIA_LIMITE) return false;
-  if (typeof selIds !== 'undefined' && selIds.size > 0) {
-    const todosConGracia = [...selIds].every(id => {
-      const grupoArr = DB[id] || [];
-      return grupoArr.some(p => GRACIA_EXTENDIDA.has(String(p.id))) || GRACIA_EXTENDIDA.has(String(id));
-    });
-    if (todosConGracia) {
-      const diasGracia = [...selIds].reduce((max, id) => {
-        const grupoArr = DB[id] || [];
-        const dniConGracia = grupoArr.find(p => GRACIA_EXTENDIDA.has(String(p.id)));
-        const dni = dniConGracia ? String(dniConGracia.id) : String(id);
-        return Math.max(max, GRACIA_DIAS[dni] || CONFIG.DIA_LIMITE);
-      }, CONFIG.DIA_LIMITE);
-      return HOY_DIA > diasGracia;
-    }
+// Días de gracia efectivos de un integrante. Orden de prioridad:
+//   1) campo 'Gracia' de la hoja (window.GRACIA_SHEET, cargado desde el Sheet)
+//   2) GRACIA_DIAS hardcodeado
+//   3) GRACIA_EXTENDIDA → default extendido (CONFIG.GRACIA_DEFAULT, 30 días)
+//   4) término general (CONFIG.DIA_LIMITE, 15 días)
+function graciaDiasDe(dni) {
+  const d = String(dni);
+  const sheetVal = window.GRACIA_SHEET ? window.GRACIA_SHEET[d] : undefined;
+  if (sheetVal !== undefined && sheetVal !== null && String(sheetVal).trim() !== '' && !isNaN(parseInt(sheetVal))) {
+    // Nunca menos que el término general
+    return Math.max(CONFIG.DIA_LIMITE, parseInt(sheetVal));
   }
-  return true;
+  if (GRACIA_DIAS[d] !== undefined) return GRACIA_DIAS[d];
+  if (GRACIA_EXTENDIDA.has(d)) return CONFIG.GRACIA_DEFAULT;
+  return CONFIG.DIA_LIMITE;
+}
+// Fecha límite de pago (con gracia) para un mes de un integrante.
+// Se toma el nº de días de gracia como día del mes; si supera los días del mes,
+// JS hace rollover (ej: gracia 90 sobre Junio ≈ fines de Agosto → cubre meses atrasados).
+function fechaLimiteMes(mes, dni) {
+  return new Date(ANIO_ACT, mes, graciaDiasDe(dni));
+}
+function tieneRecargoMes(mes) {
+  const hoy = new Date(ANIO_ACT, MES_ACT, HOY_DIA);
+  // Integrantes a evaluar: los seleccionados; si no hay selección, término general
+  const ids = (typeof selIds !== 'undefined' && selIds.size > 0) ? [...selIds] : [null];
+  // Hay recargo si a ALGÚN integrante ya se le venció su fecha límite con gracia.
+  // (Para un grupo, manda la gracia más corta: si a uno se le venció, se recarga el mes.)
+  return ids.some(id => {
+    const dias   = (id === null) ? CONFIG.DIA_LIMITE : graciaDiasDe(id);
+    const limite = new Date(ANIO_ACT, mes, dias);
+    return hoy > limite;
+  });
 }
 function tieneRecargo(mesesSeleccionados) {
   if (!mesesSeleccionados || mesesSeleccionados.length === 0) return tieneRecargoMes(MES_ACT);
@@ -1273,7 +1288,7 @@ async function buscar() {
         <div style="display:flex;align-items:center;gap:8px">
           <span style="font-size:12px;color:var(--text-soft)">${e.f}</span>
           ${e.na
-            ? `<span class="na-pill">N/A</span>`
+            ? `<span class="na-pill">✕ No aplica</span>`
             : `<span style="font-size:11px;font-weight:600;color:#2d6a4f;background:#e6f4ee;padding:2px 8px;border-radius:20px">${e.bonificado ? '🎁 Bonificado' : '✅ Pago'}</span>`}
         </div>
       </div>`).join('') + '<div style="height:1px"></div>';
@@ -1312,7 +1327,7 @@ async function buscar() {
           <div style="display:flex;align-items:center;gap:8px">
             <span style="font-size:11px;color:var(--text-soft)">${e.f}</span>
             ${e.na
-              ? `<span class="na-pill">N/A</span>`
+              ? `<span class="na-pill">✕ No aplica</span>`
               : `<span style="font-size:11px;font-weight:600;color:#2d6a4f;background:#e6f4ee;padding:2px 8px;border-radius:20px">${e.bonificado ? '🎁 Bonificado' : '✅ Pago'}</span>`}
           </div>
         </div>`).join('') + '<div style="height:1px"></div>';
@@ -1336,7 +1351,8 @@ function renderMeses(todosMeses) {
   document.getElementById('mesesList').innerHTML = sorted.map(m => {
     const sel      = mesesSel.has(m);
     const bloqueado = m === masAntiguo;
-    const vencido  = m < MES_ACT || (m === MES_ACT && HOY_DIA > CONFIG.DIA_LIMITE);
+    // "(vencido)" refleja si realmente habrá recargo (respeta la gracia del grupo)
+    const vencido  = tieneRecargoMes(m);
     return `
       <div class="mes-chip ${sel?'selected':''} ${vencido?'vencido':''} ${bloqueado?'locked':''}"
            onclick="${bloqueado ? '' : `toggleMes(${m})`}"
@@ -1557,6 +1573,18 @@ async function cargarDatos(silent = false) {
     window._pagosSheet        = pagos;
     window._gruposSheet       = grupos;
     window._liquidacionesSheet = data.liquidaciones || [];
+    // ── Mapa DNI -> días de gracia, leído del campo 'Gracia' de la hoja Jugadores ──
+    // Si la columna no existe o está vacía para alguien, cae al fallback (GRACIA_DIAS).
+    window.GRACIA_SHEET = {};
+    jugadores.forEach(j => {
+      const raw = j['Gracia'] !== undefined ? j['Gracia']
+                : j['gracia'] !== undefined ? j['gracia']
+                : j['GRACIA'] !== undefined ? j['GRACIA']
+                : j['Dias gracia'] !== undefined ? j['Dias gracia'] : '';
+      if (raw !== '' && raw !== null && raw !== undefined && !isNaN(parseInt(raw))) {
+        window.GRACIA_SHEET[String(j['DNI'])] = parseInt(raw);
+      }
+    });
     // Helper para obtener el año de un pago
     function getPagoAnio(p) {
       return String(p['Anio'] || p['Año'] || p['Ano'] || p['anio'] || '2026').trim();
@@ -2561,7 +2589,7 @@ function resetForm() {
         <option value="">Seleccioná la relación</option>
         <option value="hermana/o">Hermana/o</option>
         <option value="hija/o">Hija/o</option>
-        <option value="madre/padre">Madre/Padre</option>
+        <option value="madre/padre">Madre / Padre</option>
         <option value="prima/o">Prima/o</option>
         <option value="otra">Otra relación familiar</option>
       </select>
