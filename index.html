@@ -806,6 +806,15 @@
           <div class="error-msg" id="f-dni-error">DNI inválido. Debe tener entre 7 y 8 dígitos.</div>
         </div>
         <div style="margin-bottom:12px">
+          <label class="form-label">Fecha de nacimiento *</label>
+          <div style="display:flex;gap:8px">
+            <select class="input-field" id="f-nac-dia"  style="cursor:pointer"><option value="">Día</option></select>
+            <select class="input-field" id="f-nac-mes"  style="cursor:pointer"><option value="">Mes</option></select>
+            <select class="input-field" id="f-nac-anio" style="cursor:pointer"><option value="">Año</option></select>
+          </div>
+          <div class="error-msg" id="f-nac-error">Revisá la fecha de nacimiento.</div>
+        </div>
+        <div style="margin-bottom:12px">
           <label class="form-label">Categoría *</label>
           <select class="input-field" id="f-cat" style="cursor:pointer" onchange="onCatChange()">
             <option value="">Seleccioná una categoría</option>
@@ -997,6 +1006,19 @@ function initHome() {
   document.querySelectorAll('.cfg-inscripcion').forEach(el => el.textContent = CONFIG.INSCRIPCION.toLocaleString('es-AR'));
   document.querySelectorAll('.cfg-cuota').forEach(el => el.textContent = CONFIG.CUOTA_ABR_JUL.toLocaleString('es-AR'));
   renderFAQ();
+  initInscripcionSelects();
+}
+// Llena los selectores de fecha de nacimiento (día / mes / año)
+function initInscripcionSelects() {
+  const diaSel  = document.getElementById('f-nac-dia');
+  const mesSel  = document.getElementById('f-nac-mes');
+  const anioSel = document.getElementById('f-nac-anio');
+  if (!diaSel || !mesSel || !anioSel || diaSel.dataset.done) return;
+  for (let d = 1; d <= 31; d++) diaSel.insertAdjacentHTML('beforeend', `<option value="${d}">${d}</option>`);
+  MESES.forEach((m, i) => mesSel.insertAdjacentHTML('beforeend', `<option value="${i + 1}">${m}</option>`));
+  const anioActual = new Date().getFullYear();
+  for (let y = anioActual; y >= 1940; y--) anioSel.insertAdjacentHTML('beforeend', `<option value="${y}">${y}</option>`);
+  diaSel.dataset.done = '1';
 }
 function getPrecio(mes) {
   if (mes <= 2) return CONFIG.CUOTA_ENE_MAR;
@@ -2514,6 +2536,25 @@ async function submitInscripcion() {
     dniErr.style.display = 'block';
     return;
   }
+  // Fecha de nacimiento
+  const nacErr  = document.getElementById('f-nac-error');
+  const nacDia  = document.getElementById('f-nac-dia').value;
+  const nacMes  = document.getElementById('f-nac-mes').value;
+  const nacAnio = document.getElementById('f-nac-anio').value;
+  nacErr.style.display = 'none';
+  if (!nacDia || !nacMes || !nacAnio) {
+    nacErr.textContent = 'Completá la fecha de nacimiento (día, mes y año).';
+    nacErr.style.display = 'block';
+    return;
+  }
+  // Validar que sea una fecha real (ej: evitar 31 de febrero)
+  const dObj = new Date(parseInt(nacAnio), parseInt(nacMes) - 1, parseInt(nacDia));
+  if (dObj.getFullYear() !== parseInt(nacAnio) || dObj.getMonth() !== parseInt(nacMes) - 1 || dObj.getDate() !== parseInt(nacDia)) {
+    nacErr.textContent = 'Esa fecha de nacimiento no es válida.';
+    nacErr.style.display = 'block';
+    return;
+  }
+  const fechaNacimiento = `${nacAnio}-${String(nacMes).padStart(2, '0')}-${String(nacDia).padStart(2, '0')}`;
   // Datos del tutor
   const requiereTutor = CATS_CON_TUTOR.has(cat);
   const tApellido = normalizarNombre(document.getElementById('f-tutor-apellido').value);
@@ -2539,6 +2580,7 @@ async function submitInscripcion() {
     apellido, nombre,
     dni:      dniNorm,
     cat, tel,
+    fechaNacimiento,
     tutor: {
       apellido: tApellido,
       nombre:   tNombre,
@@ -2636,6 +2678,8 @@ function resetForm() {
     });
   document.getElementById('f-cat').value = '';
   document.getElementById('f-relacion').value = '';
+  ['f-nac-dia','f-nac-mes','f-nac-anio'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+  document.getElementById('f-nac-error').style.display = 'none';
   document.getElementById('f-dni-error').style.display = 'none';
   document.getElementById('f-tutor-dni-error').style.display = 'none';
   document.getElementById('f-error-global').style.display = 'none';
